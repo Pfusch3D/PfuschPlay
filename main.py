@@ -5,6 +5,8 @@ import json
 ws = websocket.WebSocket()
 ws.connect("ws://localhost/websocket")
 
+command = ""
+
 SendGcode = {
     "jsonrpc": "2.0",
     "method": "printer.gcode.script",
@@ -12,8 +14,6 @@ SendGcode = {
         "script": command
     },
     "id": 7466}
-
-command = ""
 
 
 def sendWS():
