@@ -25,7 +25,7 @@ def writeData(input):
 
 
 def response():
-    url = "http://localhost:7125/moonraker/api/response"
+    url = "http://localhost/moonraker/api/response"
     headers = {'content-type': 'application/json'}
 
     payload = {
