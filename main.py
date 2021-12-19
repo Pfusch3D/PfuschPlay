@@ -27,7 +27,8 @@ def sendWS(command):
 
 def receiveWS():
     data = json.loads(ws.recv())
-    print(data["method"])
+    if data["method"] == "notify_gcode_response":
+        print(data)
 
 
 # def sendS():
