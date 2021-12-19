@@ -30,8 +30,8 @@ def response():
     	"method": "notify_gcode_response",
     	"params": ["response message"]
     }
-    responseo = requests.post(url, data=json.dumps(payload), headers=headers).json()
-	print(responseo["result"])
+    res = requests.post(url, data=json.dumps(payload), headers=headers).json()
+	assert res["result"] 
 
 while True:
 	r_data = readData()
