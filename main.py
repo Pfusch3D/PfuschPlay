@@ -25,7 +25,7 @@ def receiveWS():
     print(json.load(data))
 
 
-def sendS():
+# def sendS():
 
 
 def receiveS():
