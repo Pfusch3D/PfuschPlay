@@ -25,13 +25,14 @@ def writeData(input):
 
 
 def response():
-    url = "http://anycubic/moonraker/api/response"
+    url = "http://localhost/moonraker/api/response"
     #headers = {'content-type': 'application/json'}
 
     payload = {
         "jsonrpc": "2.0",
         "method": "notify_gcode_response",
-        "params": ["response message"]
+        "params": ["response message"],
+        "id": 97542
     }
 
     response = requests.post(url, data=json.dumps(payload))
