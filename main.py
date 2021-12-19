@@ -27,8 +27,8 @@ def sendWS(command):
 
 
 def receiveWS():
-    data = ws.recv()
-    print(json.loads(data))
+    data = json.loads(ws.recv())
+    print(data)
 
 
 # def sendS():
