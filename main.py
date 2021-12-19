@@ -25,7 +25,7 @@ def writeData(input):
 
 
 def response():
-    url = "http://localhost/moonraker/api/response"
+    url = "http://anycubic/moonraker/api/response"
     #headers = {'content-type': 'application/json'}
 
     payload = {
