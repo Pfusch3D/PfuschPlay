@@ -1,7 +1,6 @@
 import websocket
 import serial
 import json
-import asyncio
 
 
 ws = websocket.WebSocket()
@@ -18,30 +17,24 @@ SendGcode = {
     "id": 7466}
 
 
-async def sendWS():
-    while True:
-        ws.send(json.dumps(SendGcode))
+def sendWS():
+    ws.send(json.dumps(SendGcode))
 
 
-async def receiveWS():
-    while True:
-        data = ws.recv()
-        print(json.loads(data))
+def receiveWS():
+    data = ws.recv()
+    print(json.loads(data))
 
 
 # def sendS():
 
 
-async def receiveS():
-    while True:
-        data = display.readline().rstrip().decode("utf-8")
-        self.command = data
+def receiveS():
+    data = display.readline().rstrip().decode("utf-8")
+    self.command = data
 
 
-def run():
+while True:
     sendWS()
     receiveWS()
     receiveS()
-
-
-asyncio.run(run())
