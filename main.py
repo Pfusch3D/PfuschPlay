@@ -38,7 +38,7 @@ def receiveWS():
 
 def receiveS():
     data = display.readline().rstrip().decode("utf-8")
-    self.command = data
+    command = data
 
 
 while True:
