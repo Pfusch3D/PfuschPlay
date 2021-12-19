@@ -13,18 +13,16 @@ display.open()
 ws = websocket.WebSocket()
 ws.connect("ws://localhost/websocket")
 
-command = "G28 X"
 
-SendGcode = {
+
+def sendWS(command):
+    SendGcode = {
     "jsonrpc": "2.0",
     "method": "printer.gcode.script",
     "params": {
         "script": command
     },
     "id": 7466}
-
-
-def sendWS():
     ws.send(json.dumps(SendGcode))
 
 
@@ -38,10 +36,10 @@ def receiveWS():
 
 def receiveS():
     data = display.readline().rstrip().decode("utf-8")
-    command = data
+    return data
 
 
 while True:
-    sendWS()
+    x = receiveS()
+    sendWS(x)
     receiveWS()
-    receiveS()
