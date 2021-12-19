@@ -14,21 +14,21 @@ ws = websocket.WebSocket()
 ws.connect("ws://localhost/websocket")
 
 
-
 def sendWS(command):
     SendGcode = {
-    "jsonrpc": "2.0",
-    "method": "printer.gcode.script",
-    "params": {
-        "script": command
-    },
-    "id": 7466}
+        "jsonrpc": "2.0",
+        "method": "printer.gcode.script",
+        "params": {
+            "script": command
+        },
+        "id": 7466}
     ws.send(json.dumps(SendGcode))
 
 
 def receiveWS():
     data = json.loads(ws.recv())
-    print(data)
+    if data[1] == "notify_gcode_response":
+        print(data)
 
 
 # def sendS():
@@ -40,6 +40,6 @@ def receiveS():
 
 
 while True:
-    x = receiveS()
-    sendWS(x)
+    #x = receiveS()
+    #sendWS(x)
     receiveWS()
