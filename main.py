@@ -3,6 +3,13 @@ import serial
 import json
 
 
+serialPort = "/dev/ttyAMA0"
+baudrate = "115200"
+display = serial.Serial()
+display.baudrate = baudrate
+display.port = serialPort
+display.open()
+
 ws = websocket.WebSocket()
 ws.connect("ws://localhost/websocket")
 
