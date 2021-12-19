@@ -11,6 +11,7 @@ ws.connect("ws://localhost/websocket")
 
 def receiveWS():
     print(ws.recv())
+    print("===========================")
 
 
 #def sendS():
