@@ -13,7 +13,7 @@ display.open()
 ws = websocket.WebSocket()
 ws.connect("ws://localhost/websocket")
 
-command = ""
+command = "G28 X"
 
 SendGcode = {
     "jsonrpc": "2.0",
