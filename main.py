@@ -26,15 +26,17 @@ def writeData(input):
 
 def response():
     url = "http://localhost/moonraker/api/response"
-    headers = {'content-type': 'application/json'}
+    #headers = {'content-type': 'application/json'}
 
     payload = {
         "jsonrpc": "2.0",
         "method": "notify_gcode_response",
         "params": ["response message"]
     }
-    res = requests.post(url, data=json.dumps(payload), headers=headers).json()
-    assert res["result"] == "response message"
+
+    response = requests.post(url, data=json.dumps(payload))
+
+    print(response)
 
 
 while True:
