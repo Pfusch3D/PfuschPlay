@@ -27,7 +27,7 @@ def sendWS(command):
 
 def receiveWS():
     data = json.loads(ws.recv())
-    print(data[1])
+    print(data["method"])
 
 
 # def sendS():
