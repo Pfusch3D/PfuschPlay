@@ -22,7 +22,7 @@ def sendWS():
 
 def receiveWS():
     data = ws.recv()
-    print(json.load(data))
+    print(json.loads(data))
 
 
 # def sendS():
