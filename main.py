@@ -1,5 +1,6 @@
 import serial
 import requests
+import json
 
 
 serialPort = "/dev/ttyAMA0"
@@ -19,6 +20,21 @@ def readData():
 def writeData(input):
 	jdata = {"commands": [input]}
 	requests.post(moonrakerURL, json=jdata)
+
+def response():
+	url = "http://localhost:4000/moonraker/api/response"
+    headers = {'content-type': 'application/json'}
+
+    # Example echo method
+    payload = {
+    	"jsonrpc": "2.0",
+    	"method": "notify_gcode_response",
+    	"params": ["response message"]
+	}
+    response_m = requests.post(
+        url, data=json.dumps(payload), headers=headers).json()
+
+	print(response["result"])
 
 while True:
 	r_data = readData()
