@@ -13,7 +13,7 @@ jsonTests = {
     },
     "id": 7466}
 
-ws.send(jsonTests)
+ws.send(json.dumps(jsonTests))
 
 
 #def sendWS():
