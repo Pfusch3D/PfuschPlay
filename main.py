@@ -1,9 +1,19 @@
 import websocket
 import serial
+import json
 
 ws = websocket.WebSocket()
 ws.connect("ws://localhost/websocket")
-#ws.send("Hello, Server")
+
+jsonTests = {
+    "jsonrpc": "2.0",
+    "method": "printer.gcode.script",
+    "params": {
+        "script": "G28"
+    },
+    "id": 7466}
+
+ws.send(jsonTests)
 
 
 #def sendWS():
