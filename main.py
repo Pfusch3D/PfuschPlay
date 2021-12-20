@@ -23,7 +23,7 @@ def receiveWS():
 
 
 def sendS(command):
-    display.write(b'Von Klipper: ' + command.encode())
+    display.write("Hello World!".encode())
 
 ###################################################################
 
