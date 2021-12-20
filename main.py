@@ -20,7 +20,7 @@ def receiveWS():
 
     if hasattr(data, 'method') == True:
         if data['method'] == 'notify_gcode_response':
-            return data['params']
+            print(data['params'])
 
 
 def sendS():
@@ -54,7 +54,7 @@ def rec():
 
 def sen():
     while True:
-        print(receiveWS())
+        receiveWS()
         sendS()
 
 
