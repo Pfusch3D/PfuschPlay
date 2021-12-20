@@ -23,7 +23,7 @@ def receiveWS():
 
 
 def sendS(command):
-    display.write(bytes(command, 'utf-8'))
+    display.write(bytes(str(command), 'utf-8'))
     print(command)
 
 ###################################################################
