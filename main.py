@@ -23,7 +23,7 @@ def receiveWS():
 
 
 def sendS(command):
-    display.write(b'Von Klipper: ' + bytes(command, 'utf-8'))
+    display.write(b'Von Klipper: ' + command)
 
 ###################################################################
 
