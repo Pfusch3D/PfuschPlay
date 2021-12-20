@@ -1,3 +1,4 @@
+from multiprocessing import Process
 import websocket
 import serial
 import json
@@ -40,8 +41,17 @@ def receiveS():
     return data
 
 
-while True:
-    x = receiveS()
-    sendWS(x)
-    y = receiveWS()
-    sendS(y)
+def rec():
+    while True:
+        x = receiveS()
+        sendWS(x)
+
+
+def sen():
+    while True:
+        y = receiveWS()
+        sendS(y)
+
+
+Process(target=rec).start()
+Process(target=sen).start()
