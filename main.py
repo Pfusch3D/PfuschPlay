@@ -23,7 +23,7 @@ def receiveWS():
 
 
 def sendS(command):
-    display.write("Hello World!".encode())
+    display.write(b"Hello World!")
 
 ###################################################################
 
