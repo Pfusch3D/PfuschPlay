@@ -55,6 +55,7 @@ def sen():
     while True:
         y = receiveWS()
         sendS(y)
+        print("hello worldf!")
 
 
 Process(target=rec).start()
