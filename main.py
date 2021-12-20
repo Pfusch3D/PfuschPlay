@@ -18,9 +18,9 @@ def receiveWS():
     ws_data = ws.recv()
     data = json.loads(ws_data)
     print(data)
-
-    # if hasattr(data, 'method') == True:
-    print("Data: " + data["method"])
+    if hasattr(data, 'method') == True:
+        if data['method'] == 'notify_gcode_response':
+            print("Deine Mutter du scheiß")
 
 
 def sendS():
