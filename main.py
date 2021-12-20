@@ -26,10 +26,7 @@ def sendWS(command):
 
 
 def sendS(command):
-    if command == "":
-        return "error"
-    else:
-        display.write(command)
+    display.write("Nix da")
 
 
 def receiveWS():
