@@ -23,8 +23,8 @@ def receiveWS():
 
 
 def sendS(command):
-    if command != "":
-        display.write(bytes(str(command), 'utf-8'))
+    if command != "None":
+        display.write(bytes(str(command) + "\n", 'utf-8'))
         print(command)
 
 ###################################################################
