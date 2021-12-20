@@ -14,7 +14,6 @@ ws = websocket.WebSocket()
 ws.connect("ws://localhost/websocket")
 
 
-
 def receiveWS():
     data = json.loads(ws.recv())
     print(data)
@@ -24,10 +23,11 @@ def receiveWS():
             return data['params']
 
 
-def sendS(command):
+def sendS():
     display.write(b'hello world from sends')
 
 ###################################################################
+
 
 def sendWS(command):
     SendGcode = {
@@ -39,7 +39,6 @@ def sendWS(command):
         "id": 7466}
     print("Websocket" + command)
     ws.send(json.dumps(SendGcode))
-
 
 
 def receiveS():
