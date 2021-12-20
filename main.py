@@ -54,8 +54,7 @@ def rec():
 
 def sen():
     while True:
-        print("hello worldf!")
-        receiveWS()
+        print(receiveWS())
         sendS()
 
 
