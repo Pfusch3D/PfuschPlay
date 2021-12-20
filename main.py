@@ -19,13 +19,11 @@ def receiveWS():
     data = json.loads(ws_data)
     if "method" in data:
         if data["method"] == "notify_gcode_response":
-            print(data["params"])
-    # if data['method'] == 'notify_gcode_response':
-    #    print("Jaoaaaaaaooa")
+            return data["params"]
 
 
-def sendS():
-    display.write(b'hello world from sends')
+def sendS(command):
+    display.write(b'Von Klipper: ' + str(command))
 
 ###################################################################
 
@@ -55,8 +53,8 @@ def rec():
 
 def sen():
     while True:
-        receiveWS()
-        sendS()
+        y = receiveWS()
+        sendS(y)
 
 
 Process(target=sen).start()
