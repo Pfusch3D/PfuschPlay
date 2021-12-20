@@ -15,7 +15,7 @@ ws.connect("ws://localhost/websocket")
 
 
 def receiveWS():
-    data = ws.recv()
+    data = json.JSONDecoder(ws.recv())
     print(data)
     newd = str(data['params'])
 
