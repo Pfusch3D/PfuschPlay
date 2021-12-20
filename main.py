@@ -21,11 +21,15 @@ def sendWS(command):
             "script": command
         },
         "id": 7466}
+    print("Websocket" + command)
     ws.send(json.dumps(SendGcode))
 
 
 def sendS(command):
-    display.write(command)
+    if command == "":
+        return "error"
+    else:
+        display.write(command)
 
 
 def receiveWS():
