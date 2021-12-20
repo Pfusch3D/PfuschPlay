@@ -27,13 +27,16 @@ def sendWS(command):
 
 
 def sendS(command):
-    display.write("Nix da".encode('utf-8'))
+    display.write(command.encode('utf-8'))
 
 
 def receiveWS():
     data = json.loads(ws.recv())
+    print("Receive: Methode Check!")
+
     if hasattr(data, "method") == True:
         if data["method"] == "notify_gcode_response":
+            print("Receive: If Check!")
             return data["params"]
 
 
