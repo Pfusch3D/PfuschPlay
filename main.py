@@ -24,6 +24,7 @@ def receiveWS():
 
 def sendS(command):
     display.write(b"Hello World!")
+    print("Heyho ich komme sogar bis hier hin. Wooww debugging ist cool!")
 
 ###################################################################
 
