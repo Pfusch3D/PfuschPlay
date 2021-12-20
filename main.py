@@ -2,7 +2,6 @@ import websocket
 import serial
 import json
 
-
 serialPort = "/dev/ttyAMA0"
 baudrate = "115200"
 display = serial.Serial()
@@ -25,14 +24,14 @@ def sendWS(command):
     ws.send(json.dumps(SendGcode))
 
 
+def sendS(command):
+    display.write(command)
+
+
 def receiveWS():
     data = json.loads(ws.recv())
     if data["method"] == "notify_gcode_response":
-        print(data["params"])
         return data["params"]
-
-
-# def sendS():
 
 
 def receiveS():
@@ -41,6 +40,7 @@ def receiveS():
 
 
 while True:
-    #x = receiveS()
-    # sendWS(x)
-    receiveWS()
+    x = receiveS()
+    sendWS(x)
+    y = receiveWS()
+    sendS(y)
