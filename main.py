@@ -26,7 +26,7 @@ def sendWS(command):
 
 
 def sendS(command):
-    display.write("Nix da")
+    display.write("Nix da".encode('utf-8'))
 
 
 def receiveWS():
