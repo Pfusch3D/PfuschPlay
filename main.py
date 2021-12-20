@@ -14,6 +14,21 @@ ws = websocket.WebSocket()
 ws.connect("ws://localhost/websocket")
 
 
+
+def receiveWS():
+    data = json.loads(ws.recv())
+    print(data)
+
+    if hasattr(data, "method") == True:
+        if data["method"] == "notify_gcode_response":
+            return data["params"]
+
+
+def sendS(command):
+    display.write(b'hello world from sends')
+
+###################################################################
+
 def sendWS(command):
     SendGcode = {
         "jsonrpc": "2.0",
@@ -25,19 +40,6 @@ def sendWS(command):
     print("Websocket" + command)
     ws.send(json.dumps(SendGcode))
 
-
-def receiveWS():
-    data = json.loads(ws.recv())
-    print("Receive: Methode Check!")
-
-    if hasattr(data, "method") == True:
-        if data["method"] == "notify_gcode_response":
-            print("Receive: If Check!")
-            return data["params"]
-
-
-def sendS(command):
-    display.write(b'hello world from sends')
 
 
 def receiveS():
@@ -54,9 +56,9 @@ def rec():
 def sen():
     while True:
         print("hello worldf!")
-        y = receiveWS()
-        sendS(y)
+        receiveWS()
+        sendS()
 
 
-Process(target=rec).start()
 Process(target=sen).start()
+Process(target=rec).start()
