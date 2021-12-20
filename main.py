@@ -26,10 +26,6 @@ def sendWS(command):
     ws.send(json.dumps(SendGcode))
 
 
-def sendS(command):
-    display.write(command.encode('utf-8'))
-
-
 def receiveWS():
     data = json.loads(ws.recv())
     print("Receive: Methode Check!")
@@ -38,6 +34,10 @@ def receiveWS():
         if data["method"] == "notify_gcode_response":
             print("Receive: If Check!")
             return data["params"]
+
+
+def sendS(command):
+    display.write(b'hello world from sends')
 
 
 def receiveS():
