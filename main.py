@@ -17,9 +17,10 @@ ws.connect("ws://localhost/websocket")
 def receiveWS():
     ws_data = ws.recv()
     data = json.loads(ws_data)
-    print(data)
-    if data['method'] == 'notify_gcode_response':
-        print("Deine Mutter du scheiß")
+    for test in data["method"]:
+        print(test)
+    # if data['method'] == 'notify_gcode_response':
+    #    print("Jaoaaaaaaooa")
 
 
 def sendS():
