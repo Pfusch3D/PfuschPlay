@@ -17,9 +17,10 @@ ws.connect("ws://localhost/websocket")
 def receiveWS():
     data = json.loads(ws.recv())
     print(data)
+    strdata = str(data['params'])
 
     # if hasattr(data, 'method') == True:
-    print("Data: " + data['params'])
+    print("Data: " + strdata)
 
 
 def sendS():
