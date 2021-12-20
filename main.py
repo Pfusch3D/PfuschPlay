@@ -15,7 +15,7 @@ ws.connect("ws://localhost/websocket")
 
 
 def receiveWS():
-    data = json.dumps(ws.recv())
+    data = json.load(ws.recv())
     print(data)
 
     # if hasattr(data, 'method') == True:
