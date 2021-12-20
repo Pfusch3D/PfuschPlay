@@ -23,8 +23,9 @@ def receiveWS():
 
 
 def sendS(command):
-    display.write(bytes(str(command), 'utf-8'))
-    print(command)
+    if command != "":
+        display.write(bytes(str(command), 'utf-8'))
+        print(command)
 
 ###################################################################
 
