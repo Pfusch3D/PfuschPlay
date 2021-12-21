@@ -4,8 +4,5 @@ display = serial.Serial("/dev/ttyAMA0", 115200, 1)
 
 display.open()
 
-
-
-
-
-display.write(b"Hello World sagt das Python Programm")
+while True:
+    display.write(b"A1V 200")
