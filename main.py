@@ -8,6 +8,7 @@ import time
 display = serial.Serial()
 display.baudrate = config.PfuschPlay["baudrate"]
 display.port = config.PfuschPlay["serialPort"]
+time.sleep(2)
 display.open()
 
 ws = websocket.WebSocket()
@@ -28,11 +29,8 @@ def sendS(commandone):
         dataone = datazero.replace("[", "")
         datatwo = dataone.replace("]", "")
         datathree = datatwo.replace("'", "")
-        if display.in_waiting == 0:
-            for i in datathree:
-                display.writelines(bytes(str(i) + "\n", 'utf-8'))
-                time.sleep(0.1)
-
+        display.writelines(bytes(str(datathree) + "\n", 'utf-8'))
+                
         print("Websocket Receive: " + str(datathree))  # Only for debugging
 
 
