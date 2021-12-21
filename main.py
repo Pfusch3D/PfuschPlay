@@ -18,8 +18,8 @@ ws.connect(config.PfuschPlay["websocketURL"])
 def receiveWS():
     ws_data = ws.recv()
     data = json.loads(ws_data)
-    if "method" in data:
-        if data["method"] == "notify_gcode_response":
+    while "method" in data:
+        while data["method"] == "notify_gcode_response":
             return data["params"]
 
 
@@ -71,6 +71,6 @@ def receiveS():
 while True:
     x = receiveS()
     sendWS(x)
-    time.sleep(0.5)
+    #time.sleep(0.5)
     y = receiveWS()
     sendS(y)
