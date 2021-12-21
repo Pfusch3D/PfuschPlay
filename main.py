@@ -19,7 +19,7 @@ def receiveWS():
     ws_data = ws.recv()
     data = json.loads(ws_data)
     if "method" in data:
-        if data["method"] == "notify_gcode_response":
+        while data["method"] == "notify_gcode_response":
             return data["params"]
 
 
