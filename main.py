@@ -23,7 +23,8 @@ def receiveWS():
 
 def sendS(command):
     if command:
-        dataone = command.replace("[", "")
+        datazero = str(command)
+        dataone = datazero.replace("[", "")
         datatwo = dataone.replace("]", "")
         datathree = datatwo.replace("'", "")
         display.write(bytes(str(datathree) + "\n", 'utf-8'))
