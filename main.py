@@ -21,9 +21,9 @@ def receiveWS():
             return data["params"]
 
 
-def sendS(command):
-    if command:
-        datazero = str(command)
+def sendS(commandone):
+    if commandone:
+        datazero = str(commandone)
         dataone = datazero.replace("[", "")
         datatwo = dataone.replace("]", "")
         datathree = datatwo.replace("'", "")
