@@ -23,8 +23,11 @@ def receiveWS():
 
 def sendS(command):
     if command:
-        display.write(bytes(str(command) + "\n", 'utf-8'))
-        print("Websocket Receive: " + str(command)) # Only for debugging
+        dataone = command.replace("[", "")
+        datatwo = dataone.replace("]", "")
+        datathree = datatwo.replace("'", "")
+        display.write(bytes(str(datathree) + "\n", 'utf-8'))
+        print("Websocket Receive: " + str(datathree)) # Only for debugging
 
 
 def sendWS(command):
