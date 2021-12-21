@@ -27,7 +27,7 @@ def sendS(commandone):
         dataone = datazero.replace("[", "")
         datatwo = dataone.replace("]", "")
         datathree = datatwo.replace("'", "")
-        display.write(bytes(str(datathree) + "\n", 'utf-8'))
+        display.writeline(bytes(str(datathree) + "\n", 'utf-8'))
         print("Websocket Receive: " + str(datathree)) # Only for debugging
 
 
