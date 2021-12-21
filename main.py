@@ -53,25 +53,25 @@ def receiveS():
     return data
 
 
-# def rec():
-#     while True:
-#         x = receiveS()
-#         sendWS(x)
+def rec():
+    while True:
+        x = receiveS()
+        sendWS(x)
 
 
-# def sen():
-#     while True:
-#         y = receiveWS()
-#         sendS(y)
+def sen():
+    while True:
+        y = receiveWS()
+        sendS(y)
 
 
-# Process(target=sen).start()
-# Process(target=rec).start()
+Process(target=sen).start()
+Process(target=rec).start()
 
-while True:
-    x = receiveS()
-    sendWS(x)
-    #time.sleep(0.5)
-    y = receiveWS()
-    sendS(y)
+# while True:
+#     x = receiveS()
+#     sendWS(x)
+#     #time.sleep(0.5)
+#     y = receiveWS()
+#     sendS(y)
 
