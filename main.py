@@ -3,6 +3,7 @@ import websocket
 import serial
 import json
 import config
+import time
 
 display = serial.Serial()
 display.baudrate = config.PfuschPlay["baudrate"]
@@ -27,7 +28,9 @@ def sendS(commandone):
         dataone = datazero.replace("[", "")
         datatwo = dataone.replace("]", "")
         datathree = datatwo.replace("'", "")
+        time.sleep(0.1)
         display.writelines(bytes(str(datathree) + "\n", 'utf-8'))
+        time.sleep(0.1)
         print("Websocket Receive: " + str(datathree)) # Only for debugging
 
 
