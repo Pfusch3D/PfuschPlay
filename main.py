@@ -2,16 +2,15 @@ from multiprocessing import Process
 import websocket
 import serial
 import json
+import config
 
-serialPort = "/dev/ttyAMA0"
-baudrate = "115200"
 display = serial.Serial()
-display.baudrate = baudrate
-display.port = serialPort
+display.baudrate = config.PfuschPlay["baudrate"]
+display.port = config.PfuschPlay["serialPort"]
 display.open()
 
 ws = websocket.WebSocket()
-ws.connect("ws://localhost/websocket")
+ws.connect(config.PfuschPlay["websocketURL"])
 
 
 def receiveWS():
@@ -25,9 +24,7 @@ def receiveWS():
 def sendS(command):
     if command:
         display.write(bytes(str(command) + "\n", 'utf-8'))
-        print(command)
-
-###################################################################
+        print("Websocket Receive: " + command)
 
 
 def sendWS(command):
@@ -38,8 +35,8 @@ def sendWS(command):
             "script": command
         },
         "id": 7466}
-    print("Websocket" + command)
     ws.send(json.dumps(SendGcode))
+    print("Websocket Send: " + command)
 
 
 def receiveS():
