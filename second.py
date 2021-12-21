@@ -14,5 +14,5 @@ display.baudrate = PfuschPlay["baudrate"]
 display.port = PfuschPlay["serialPort"]
 display.open()
 
-while True:
-    display.write(b"Hello World sagt das Python Programm")
+
+display.write(b"Hello World sagt das Python Programm")
