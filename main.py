@@ -24,7 +24,7 @@ def receiveWS():
 def sendS(command):
     if command:
         display.write(bytes(str(command) + "\n", 'utf-8'))
-        print("Websocket Receive: " + command) # Only for debugging
+        print("Websocket Receive: " + str(command)) # Only for debugging
 
 
 def sendWS(command):
@@ -36,7 +36,7 @@ def sendWS(command):
         },
         "id": 7466}
     ws.send(json.dumps(SendGcode))
-    print("Websocket Send: " + command) # Only for debugging
+    print("Websocket Send: " + str(command)) # Only for debugging
 
 
 def receiveS():

@@ -1,0 +1,7 @@
+A0 --> A0V {Temp} // Get Hotend Temp
+A1 --> A1V {Temp} // Get Hotend Target Temp
+A2 --> A2V {Temp} // Get Hotbed Temp
+A3 --> A3V {Temp} // Get Hotbed Target Temp
+
+A4 --> A4V {Fan Speed 0-100} // Get Fan Speed
+A5 --> A5V X: {X Position} Y: {Y Position} Z: {Z Position} // Get Position
