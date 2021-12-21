@@ -28,10 +28,12 @@ def sendS(commandone):
         dataone = datazero.replace("[", "")
         datatwo = dataone.replace("]", "")
         datathree = datatwo.replace("'", "")
-        time.sleep(0.5)
-        display.writelines(bytes(str(datathree) + "\n", 'utf-8'))
-        time.sleep(0.5)
-        print("Websocket Receive: " + str(datathree)) # Only for debugging
+        if display.in_waiting == 0:
+            for i in datathree:
+                display.writelines(bytes(str(i) + "\n", 'utf-8'))
+                time.sleep(0.1)
+
+        print("Websocket Receive: " + str(datathree))  # Only for debugging
 
 
 def sendWS(command):
@@ -43,7 +45,7 @@ def sendWS(command):
         },
         "id": 7466}
     ws.send(json.dumps(SendGcode))
-    print("Websocket Send: " + str(command)) # Only for debugging
+    print("Websocket Send: " + str(command))  # Only for debugging
 
 
 def receiveS():
