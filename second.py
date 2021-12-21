@@ -1,6 +1,6 @@
 import serial
 
-display = serial.Serial("/dev/ttyAMA0", 115200
+display = serial.Serial("/dev/ttyAMA0", 115200)
 
 display.open()
 
