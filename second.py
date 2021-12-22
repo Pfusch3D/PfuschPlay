@@ -2,7 +2,7 @@ import serial
 import time
 
 display = serial.Serial()
-display.port = "/dev/ttyAMA0/"
+display.port = "/dev/ttyAMA0"
 display.baudrate = 115200
 display.open()
 
