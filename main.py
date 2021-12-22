@@ -30,10 +30,8 @@ def sendS(commandone):
         datatwo = dataone.replace("]", "")
         datathree = datatwo.replace("'", "")
         time.sleep(0.2)
-        for c in datathree:
-            display.write(datathree.strip().encode())
-            #display.write(bytes(str(datathree) + "\n", 'ascii'))
-            time.sleep(0.2)
+        display.write(str(chr(datathree)) + "\n")
+        time.sleep(0.2)
 
         print("Websocket Receive: " + str(datathree))  # Only for debugging
 
@@ -55,24 +53,24 @@ def receiveS():
     return data
 
 
-# def rec():
-#     while True:
-#         x = receiveS()
-#         sendWS(x)
+def rec():
+    while True:
+        x = receiveS()
+        sendWS(x)
 
 
-# def sen():
-#     while True:
-#         y = receiveWS()
-#         sendS(y)
+def sen():
+    while True:
+        y = receiveWS()
+        sendS(y)
 
 
-# Process(target=sen).start()
-# Process(target=rec).start()
+Process(target=rec).start()
+Process(target=sen).start()
 
-while True:
-    x = receiveS()
-    sendWS(x)
-    # time.sleep(0.5)
-    y = receiveWS()
-    sendS(y)
+# while True:
+#     x = receiveS()
+#     sendWS(x)
+#     # time.sleep(0.5)
+#     y = receiveWS()
+#     sendS(y)
