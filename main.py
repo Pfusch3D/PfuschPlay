@@ -14,6 +14,9 @@ display.open()
 ws = websocket.WebSocket()
 ws.connect(config.PfuschPlay["websocketURL"])
 
+def to_ascii(text):
+    ascii_values = [ord(character) for character in text]
+    return ascii_values
 
 def receiveWS():
     ws_data = ws.recv()
@@ -30,7 +33,8 @@ def sendS(commandone):
         datatwo = dataone.replace("]", "")
         datathree = datatwo.replace("'", "")
         time.sleep(0.2)
-        display.write(str(chr(datathree)) + "\n")
+        data = str(datathree) + "\n"
+        display.write(to_ascii(data))
         time.sleep(0.2)
 
         print("Websocket Receive: " + str(datathree))  # Only for debugging
