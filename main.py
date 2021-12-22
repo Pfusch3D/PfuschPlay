@@ -14,9 +14,11 @@ display.open()
 ws = websocket.WebSocket()
 ws.connect(config.PfuschPlay["websocketURL"])
 
+
 def to_ascii(text):
     ascii_values = [ord(character) for character in text]
     return ascii_values
+
 
 def receiveWS():
     ws_data = ws.recv()
