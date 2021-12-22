@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "TFTSimulator",
+			"path": "../PlatformIO/Projects/TFTSimulator"
+		}
+	],
+	"settings": {}
+}
