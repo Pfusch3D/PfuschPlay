@@ -4,6 +4,7 @@ import time
 display = serial.Serial()
 display.port = "/dev/ttyAMA0"
 display.baudrate = 115200
+time.sleep(2)
 display.open()
 
 
