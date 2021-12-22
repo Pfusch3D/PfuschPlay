@@ -33,7 +33,7 @@ def sendS(commandone):
         datatwo = dataone.replace("]", "")
         datathree = datatwo.replace("'", "")
         time.sleep(0.2)
-        data = str(datathree) + "\n"
+        data = str(datathree.strip()) + "\n"
         display.write(to_ascii(data))
         time.sleep(0.2)
 
