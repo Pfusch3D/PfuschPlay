@@ -11,5 +11,5 @@ display.open()
 
 time.sleep(2)
 while True:
-    display.write(b"A1 V200\n ")
+    display.write(b"A1 V200\n")
     time.sleep(1)
