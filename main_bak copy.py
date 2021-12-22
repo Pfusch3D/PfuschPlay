@@ -30,7 +30,7 @@ def sendS(commandone):
         datatwo = dataone.replace("]", "")
         datathree = datatwo.replace("'", "")
         time.sleep(0.2)
-        display.write(bytes(str(datathree) + "\n", 'utf-8'))
+        display.write(bytes(str(datathree) + "\r\n", 'ascii'))
         time.sleep(0.2)
 
         print("Websocket Receive: " + str(datathree))  # Only for debugging
@@ -49,7 +49,7 @@ def sendWS(command):
 
 
 def receiveS():
-    data = display.readline().rstrip().decode("utf-8")
+    data = display.readline().rstrip().decode("ascii")
     return data
 
 
