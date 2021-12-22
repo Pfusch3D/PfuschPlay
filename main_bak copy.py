@@ -8,6 +8,7 @@ import time
 display = serial.Serial()
 display.baudrate = config.PfuschPlay["baudrate"]
 display.port = config.PfuschPlay["serialPort"]
+display.rtscts = True # ACHTUNG!
 time.sleep(2)
 display.open()
 
