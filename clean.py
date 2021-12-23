@@ -26,9 +26,22 @@ def convertASCII(input):
     return ascii_values
 
 
-def receiveWS():
+def checkWS():
     ws_data = ws.recv()
     data = json.loads(ws_data)
+
+    if "method" in data:
+        if data["method"] == "notify_gcode_response":
+            if "params" in data:
+                if data["params"] == "!! Shutdown due to webhooks request":
+                    print("ALAAAAARM")
+
+
+def receiveWS():
+    global emergency
+    ws_data = ws.recv()
+    data = json.loads(ws_data)
+
     if "method" in data:
         while data["method"] == "notify_gcode_response":
             return data["params"]
@@ -68,6 +81,7 @@ def receiveS():
 
 def rec():
     while True:
+        checkWS()
         x = receiveS()
         sendWS(x)
 
