@@ -13,7 +13,7 @@ display.port = config.PfuschPlay["serialPort"]
 # Wait for Bootloader of TFT
 time.sleep(2)
 display.open()
-emergency = 2  # 1 --> active, 2 --> inactive
+emergency  # 1 --> active, 2 --> inactive
 
 ws = websocket.WebSocket()
 # Load websocket URL from config file:
