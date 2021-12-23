@@ -45,7 +45,7 @@ def on_message(ws, message):
         if data["method"] == "notify_gcode_response":
             if "params" in data:
                 data = str(data["params"])
-                data = data[3:-2]
+                data = data[3:-2] + "\r\n"
                 print(data)
                 display.write(convertASCII(data))
                 time.sleep(0.01)
