@@ -24,11 +24,11 @@ ws.connect(config.PfuschPlay["websocketURL"])
 
 def checkEmergency(status=0):
     global emergency
-    if status == 1:
+    if status is 1:
         emergency = 1
-    elif status == 2:
+    elif status is 2:
         emergency = 2
-    elif status == 0:
+    elif status is 0:
         return emergency
 
 
