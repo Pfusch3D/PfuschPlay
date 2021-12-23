@@ -20,11 +20,11 @@ def convertASCII(input):
     return ascii_values
 
 
-def checkS():
+def checkS(ws):
     data = display.readline().rstrip().decode("utf-8")
     print("TFT Input: " + str(data))
     time.sleep(0.01)
-    sendWS(data)
+    sendWS(ws, data)
 
 
 def sendWS(ws, command):
