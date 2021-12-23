@@ -18,7 +18,6 @@ ws = websocket.WebSocket()
 # Load websocket URL from config file:
 ws.connect(config.PfuschPlay["websocketURL"])
 
-shutdown = 0
 
 
 def convertASCII(input):
@@ -37,9 +36,6 @@ def receiveWS():
     ws_data = ws.recv()
     data = json.loads(ws_data)
     if "method" in data:
-        if (data["method"] == "notify_klippy_shutdown") or (shutdown == 1):
-            shutdown = 1
-            return "alarm"
         if data["method"] == "notify_gcode_response":
             content = filterData(data["params"])
             print("Jetzt kommen die True facts: " + content)
@@ -50,8 +46,7 @@ def sendS(command):
     if command:
         data = command + "\r\n"
         display.write(convertASCII(data))
-        time.sleep(0.01)
-        print("Websocket Receive: " + str(data))  # Only for debugging
+        time.sleep(0.01) # Protect against overload
 
 
 def sendWS(command):
@@ -64,7 +59,6 @@ def sendWS(command):
             },
             "id": 7466}
         ws.send(json.dumps(SendGcode))
-        print("Websocket Send: " + str(command))  # Only for debugging
 
 
 def receiveS():
@@ -73,31 +67,17 @@ def receiveS():
 
 
 def rec():
-    global shutdown
     while True:
-        if shutdown == 0:
             x = receiveS()
             sendWS(x)
 
 
 def sen():
-    global shutdown
     while True:
-        if shutdown == 0:
-            y = receiveWS()
-            sendS(y)
+        y = receiveWS()
+        sendS(y)
 
 
 Process(target=rec).start()
 Process(target=sen).start()
 
-
-# while True:
-#     if shutdown == 0:
-#         x = receiveS()
-#         sendWS(x)
-#         # time.sleep(0.5)
-#         y = receiveWS()
-#         sendS(y)
-#     else:
-#         print("Hier läuft einiges Schief!")
