@@ -27,7 +27,7 @@ def convertASCII(input):
 
 def filterData(input):
     data = str(input)
-    data = str(data[2:-2])
+    data = str(data[2:-2]).strip()
     return data
 
 def receiveWS():
