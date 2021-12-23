@@ -27,6 +27,7 @@ def convertASCII(input):
 
 
 def checkWS():
+    global emergency
     ws_data = ws.recv()
     data = json.loads(ws_data)
     if "method" in data:
@@ -43,6 +44,7 @@ def receiveWS():
 
 
 def sendS(command):
+    global emergency
     if command:
         data = str(command)
         data = data.replace("[", "")
@@ -60,6 +62,7 @@ def sendS(command):
 
 
 def sendWS(command):
+    global emergency
     SendGcode = {
         "jsonrpc": "2.0",
         "method": "printer.gcode.script",
