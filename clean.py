@@ -37,12 +37,13 @@ def receiveWS():
     ws_data = ws.recv()
     data = json.loads(ws_data)
     if "method" in data:
+        if data["method"] == "notify_klippy_shutdown":
+            shutdown = 1
+            return "alarm"
         if data["method"] == "notify_gcode_response":
             content = filterData(data["params"])
             print("Jetzt kommen die True facts: " + content)
             return content
-        if data["method"] == "notify_klippy_shutdown":
-            shutdown = 1 
 
 
 
