@@ -12,11 +12,10 @@ def on_close(ws):
 
 
 if __name__ == "__main__":
-    websocket.enableTrace(True)
+    websocket.enableTrace(False)
     ws = websocket.WebSocketApp(
         "ws://localhost/websocket", on_message=on_message, on_close=on_close)
     ws = threading.Thread(target=ws.run_forever)
-    ws.daemon = False
     ws.start()
 
     conn_timeout = 5
@@ -26,7 +25,7 @@ if __name__ == "__main__":
 
     msg_counter = 0
     while ws.sock.connected:
-        ws.send('Hello world %d' % msg_counter)
         print("Hello World!")
+        ws.send('Hello world %d' % msg_counter)
         sleep(1)
         msg_counter += 1
