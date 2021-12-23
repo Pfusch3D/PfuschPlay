@@ -1,5 +1,5 @@
 from multiprocessing import Process
-import websocket
+import websockets
 import serial
 import json
 import config
