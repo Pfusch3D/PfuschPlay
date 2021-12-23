@@ -18,7 +18,17 @@ ws = websocket.WebSocket()
 # Load websocket URL from config file:
 ws.connect(config.PfuschPlay["websocketURL"])
 
-emergency = 0
+emergency = 2  # 1 --> active, 2 --> inactive
+
+
+def checkEmergency(status=0):
+    global emergency
+    if status == 1:
+        emergency = 1
+    elif status == 2:
+        emergency = 2
+    elif status == 0:
+        return emergency
 
 
 def convertASCII(input):
@@ -39,31 +49,28 @@ def receiveWS():
 
     if "method" in data:
         if data["method"] == "notify_gcode_response":
-            global emergency
             content = filterData(data["params"])
             if content == "!! Shutdown due to webhooks request":
-                emergency = 1
+                checkEmergency(status=1)
             print("Jetzt kommen die True facts: " + content)
             return content
 
 
 def sendS(command):
-    global emergency
     if command:
-        if emergency == 0:
+        if checkEmergency() == 2:
             data = command + "\r\n"
             display.write(convertASCII(data))
             time.sleep(0.01)
 
             print("Websocket Receive: " + str(data))  # Only for debugging
-        elif emergency == 1:
-            print("Error. Vielleicht Emergency Stop?")
+        elif checkEmergency() == 1:
+            print("Error ich darf nichts senden!")
 
 
 def sendWS(command):
-    global emergency
     if command:
-        if emergency == 0:
+        if checkEmergency() == 2:
             SendGcode = {
                 "jsonrpc": "2.0",
                 "method": "printer.gcode.script",
@@ -75,8 +82,8 @@ def sendWS(command):
             ws.send(json.dumps(SendGcode))
 
             print("Websocket Send: " + str(command))  # Only for debugging
-        elif emergency == 1:
-            print("ALAAAARM!!!!")
+        elif checkEmergency() == 1:
+            print("Error ich darf auch nichts senden!")
 
 
 def receiveS():
