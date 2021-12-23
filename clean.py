@@ -27,8 +27,8 @@ def convertASCII(input):
 
 
 def receiveWS():
+    global emergency
     print(emergency)
-    global emergency 
     emergency = 1
     print(emergency)
 
