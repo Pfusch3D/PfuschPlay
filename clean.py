@@ -75,6 +75,8 @@ def sendWS(command):
         ws.send(json.dumps(SendGcode))
 
         print("Websocket Send: " + str(command))  # Only for debugging
+    elif emergency == 1:
+        print("ALAAAARM!!!!")
 
 
 def receiveS():
