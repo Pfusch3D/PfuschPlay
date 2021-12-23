@@ -18,6 +18,8 @@ ws = websocket.WebSocket()
 # Load websocket URL from config file:
 ws.connect(config.PfuschPlay["websocketURL"])
 
+emergency = False
+
 
 def convertASCII(input):
     ascii_values = [ord(character) for character in input]
@@ -29,15 +31,15 @@ def receiveWS():
     data = json.loads(ws_data)
 
     if "method" in data:
-        while data["method"] == "notify_gcode_response":
-            return data["params"]
+        if data["method"] == "notify_gcode_response":
+            data = str(data["params"])
+            data = str(data[3:-2]) + "\r\n"
+            return data
 
 
 def sendS(command):
     if command:
-        data = str(command)
-        data = str(data[3:-2]) + "\r\n"
-        display.write(convertASCII(data))
+        display.write(convertASCII(command))
         time.sleep(0.01)
 
         print("Websocket Receive: " + str(data))  # Only for debugging
