@@ -25,6 +25,10 @@ def convertASCII(input):
     ascii_values = [ord(character) for character in input]
     return ascii_values
 
+def filterData(input):
+    data = str(input)
+    data = str(data[3:-2])
+    return data
 
 def receiveWS():
 
@@ -33,14 +37,14 @@ def receiveWS():
 
     if "method" in data:
         if data["method"] == "notify_gcode_response":
-            print("Jetzt kommen die True facts: " + str(data["params"]))
-            return data["params"]
+            content = filterData(data["params"])
+            print("Jetzt kommen die True facts: " + content)
+            return content
 
 
 def sendS(command):
     if command:
-        data = str(command)
-        data = str(data[3:-2]) + "\r\n"
+        data = command + "\r\n"
         display.write(convertASCII(data))
         time.sleep(0.01)
 
