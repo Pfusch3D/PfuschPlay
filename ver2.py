@@ -64,9 +64,6 @@ if __name__ == "__main__":
                                 on_open=on_open,
                                 on_message=on_message,
                                 on_error=on_error)
-    counter = 0
-    while True:
-        checkS()
-        if counter == 0:
-            ws.run_forever()
-            counter = 1
+    print("Debug 1")
+    ws.run_forever()
+    print("Debug 2")
