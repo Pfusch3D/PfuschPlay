@@ -16,23 +16,19 @@ display.open()
 
 
 def on_message(ws, message):
-    print(message)
+    data = json.loads(message)
+    if "method" in data:
+        if data["method"] == "notify_gcode_response":
+            if "params" in data:
+                print(data["params"])
 
 
 def on_error(ws, error):
-    print(error)
+    print("Fehler: " + error)
 
 
 def on_open(ws):
-    # def run(*args):
-    #     for i in range(3):
-    #         time.sleep(1)
-
-    #     time.sleep(1)
-    #     #ws.close()
-    #     print("thread terminating...")
-    # _thread.start_new_thread(run, ())
-    print("Websocket gestartet")
+    print("Websocket Verbindung hergestellt.")
 
 
 if __name__ == "__main__":
