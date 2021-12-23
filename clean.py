@@ -27,16 +27,13 @@ def convertASCII(input):
 
 
 def receiveWS():
-    global emergency
-    print(emergency)
-    emergency = 1
-    print(emergency)
 
     ws_data = ws.recv()
     data = json.loads(ws_data)
 
     if "method" in data:
         if data["method"] == "notify_gcode_response":
+            print("Jetzt kommen die True facts: " + str(data["params"]))
             return data["params"]
 
 
