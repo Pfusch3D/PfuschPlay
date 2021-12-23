@@ -18,6 +18,8 @@ ws = websocket.WebSocket()
 # Load websocket URL from config file:
 ws.connect(config.PfuschPlay["websocketURL"])
 
+shutdown = 0
+
 
 def convertASCII(input):
     ascii_values = [ord(character) for character in input]
@@ -31,6 +33,7 @@ def filterData(input):
 
 
 def receiveWS():
+    global shutdown
     ws_data = ws.recv()
     data = json.loads(ws_data)
     if "method" in data:
@@ -38,10 +41,13 @@ def receiveWS():
             content = filterData(data["params"])
             print("Jetzt kommen die True facts: " + content)
             return content
+        if data["method"] == "notify_klippy_shutdown":
+            shutdown = 1 
+
 
 
 def sendS(command):
-    if command:
+    if command and (shutdown == 0):
         data = command + "\r\n"
         display.write(convertASCII(data))
         time.sleep(0.01)
@@ -49,7 +55,7 @@ def sendS(command):
 
 
 def sendWS(command):
-    if command:
+    if command and (shutdown == 0):
         SendGcode = {
             "jsonrpc": "2.0",
             "method": "printer.gcode.script",
