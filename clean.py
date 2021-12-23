@@ -62,20 +62,21 @@ def sendS(command):
 
 def sendWS(command):
     global emergency
-    if emergency == 0:
-        SendGcode = {
-            "jsonrpc": "2.0",
-            "method": "printer.gcode.script",
-            "params": {
-                "script": command
-            },
-            "id": 7466}
+    if command:
+        if emergency == 0:
+            SendGcode = {
+                "jsonrpc": "2.0",
+                "method": "printer.gcode.script",
+                "params": {
+                    "script": command
+                },
+                "id": 7466}
 
-        ws.send(json.dumps(SendGcode))
+            ws.send(json.dumps(SendGcode))
 
-        print("Websocket Send: " + str(command))  # Only for debugging
-    elif emergency == 1:
-        print("ALAAAARM!!!!")
+            print("Websocket Send: " + str(command))  # Only for debugging
+        elif emergency == 1:
+            print("ALAAAARM!!!!")
 
 
 def receiveS():
