@@ -28,7 +28,7 @@ def checkS():
     sendWS(data)
 
 
-def sendWS(command):
+def sendWS(ws, command):
     SendGcode = {
         "jsonrpc": "2.0",
         "method": "printer.gcode.script",
