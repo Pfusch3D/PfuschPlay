@@ -32,14 +32,14 @@ def receiveWS():
 
     if "method" in data:
         if data["method"] == "notify_gcode_response":
-            datac = str(data["params"])
-            datac = str(datac[3:-2]) + "\r\n"
-            return datac
+            return data["params"]
 
 
 def sendS(command):
     if command:
-        display.write(convertASCII(command))
+        data = str(command)
+        data = str(data[3:-2]) + "\r\n"
+        display.write(convertASCII(data))
         time.sleep(0.01)
 
         print("Websocket Receive: " + str(data))  # Only for debugging
