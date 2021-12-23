@@ -1,4 +1,3 @@
-from clean import sendS
 import websocket
 import serial
 import json
