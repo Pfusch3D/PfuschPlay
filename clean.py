@@ -13,12 +13,13 @@ display.port = config.PfuschPlay["serialPort"]
 # Wait for Bootloader of TFT
 time.sleep(2)
 display.open()
+emergency = 2  # 1 --> active, 2 --> inactive
 
 ws = websocket.WebSocket()
 # Load websocket URL from config file:
 ws.connect(config.PfuschPlay["websocketURL"])
 
-emergency = 2  # 1 --> active, 2 --> inactive
+
 
 
 def checkEmergency(status=0):
@@ -78,7 +79,7 @@ def sendWS(command):
                     "script": command
                 },
                 "id": 7466}
-
+            print("Bypass!")
             ws.send(json.dumps(SendGcode))
 
             print("Websocket Send: " + str(command))  # Only for debugging
