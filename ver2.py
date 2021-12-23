@@ -60,8 +60,6 @@ def on_open(ws):
         checkS(ws)
 
 
-
-
 if __name__ == "__main__":
     websocket.enableTrace(False)
     ws = websocket.WebSocketApp("ws://localhost/websocket",
