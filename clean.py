@@ -37,21 +37,25 @@ def receiveWS():
 
     if "method" in data:
         if data["method"] == "notify_gcode_response":
+            global emergency
             content = filterData(data["params"])
             if content == "!! Shutdown due to webhooks request":
-                print("ALAAAARM")
+                emergency = 1
             else:
                 print("Jetzt kommen die True facts: " + content)
                 return content
 
 
 def sendS(command):
-    if command:
+    global emergency
+    if command and emergency == 0:
         data = command + "\r\n"
         display.write(convertASCII(data))
         time.sleep(0.01)
 
         print("Websocket Receive: " + str(data))  # Only for debugging
+    else:
+        print("Error. Vielleicht Emergency Stop?")
 
 
 def sendWS(command):
