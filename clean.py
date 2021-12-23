@@ -32,7 +32,8 @@ def recWS():
 
 def checkWS():
     datal = recWS()
-
+        ws_data = ws.recv()
+    data = json.loads(ws_data)
     if "method" in datal:
         if datal["method"] == "notify_gcode_response":
             if "params" in datal:
