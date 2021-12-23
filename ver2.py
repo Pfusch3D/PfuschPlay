@@ -17,7 +17,7 @@ def on_open(ws):
             time.sleep(1)
            
         time.sleep(1)
-        ws.close()
+        #ws.close()
         print("thread terminating...")
     _thread.start_new_thread(run, ())
 
