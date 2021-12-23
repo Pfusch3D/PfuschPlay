@@ -18,7 +18,7 @@ ws = websocket.WebSocket()
 # Load websocket URL from config file:
 ws.connect(config.PfuschPlay["websocketURL"])
 
-emergency = False
+emergency = 0
 
 
 def convertASCII(input):
@@ -27,6 +27,11 @@ def convertASCII(input):
 
 
 def receiveWS():
+    print(emergency)
+    global emergency 
+    emergency = 1
+    print(emergency)
+
     ws_data = ws.recv()
     data = json.loads(ws_data)
 
