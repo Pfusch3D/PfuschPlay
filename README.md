@@ -1,6 +1,6 @@
 # PfuschPlay
 
-NOT FOR PERSONAL USE! PROJECT IS IN DEVELOPMENT!
-NICHT FÜR DEN PERSÖNLICHEN GEBRAUCH! PROJEKT IST IN ENTWICKLUNG!
+Use Klipper with TFT screens which uses UART to communicate.
 
-Use 3D printer touchscreens which uses UART for klipper. 
+Das ganze Projekt wird vorerst auf Deutsch beschrieben:
+
