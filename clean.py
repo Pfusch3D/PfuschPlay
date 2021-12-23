@@ -26,37 +26,27 @@ def convertASCII(input):
     return ascii_values
 
 
-def checkWS():
+
+def receiveWS():
     global emergency
     ws_data = ws.recv()
     data = json.loads(ws_data)
-    if "method" in data:
-        if data["method"] == "notify_klippy_shutdown":
-            emergency = True
-
-
-def receiveWS():
-    ws_data = ws.recv()
-    data = json.loads(ws_data)
+    if "error" in data:
+        emergency = True
     if "method" in data:
         while data["method"] == "notify_gcode_response":
             return data["params"]
 
 
 def sendS(command):
-    global emergency
     if command:
         data = str(command)
         data = data.replace("[", "")
         data = data.replace("]", "")
         data = data.replace("'", "")
         data = str(data.strip()) + "\r\n"
-        if data == "!! Shutdown due to webhooks request":
-            print("blablbla")
-            emergency = True
-        if emergency == False:
-            display.write(convertASCII(data))
-            time.sleep(0.01)
+        display.write(convertASCII(data))
+        time.sleep(0.01)
 
         print("Websocket Receive: " + str(data))  # Only for debugging
 
@@ -72,6 +62,8 @@ def sendWS(command):
         "id": 7466}
     if emergency == False:
         ws.send(json.dumps(SendGcode))
+    elif emergency == True:
+        print("Error! Die Welt explodiert! Sofort das Problem lösen!")
 
     print("Websocket Send: " + str(command))  # Only for debugging
 
