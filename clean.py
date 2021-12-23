@@ -32,9 +32,9 @@ def receiveWS():
 
     if "method" in data:
         if data["method"] == "notify_gcode_response":
-            data = str(data["params"])
-            data = str(data[3:-2]) + "\r\n"
-            return data
+            datac = str(data["params"])
+            datac = str(datac[3:-2]) + "\r\n"
+            return datac
 
 
 def sendS(command):
