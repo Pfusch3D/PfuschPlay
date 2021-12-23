@@ -21,13 +21,13 @@ def convertASCII(input):
 
 
 def checkS():
-    data = display.readline().rstrip().decode("ascii")
+    data = display.readline().rstrip().decode("utf-8")
     print("TFT Input: " + data)
     time.sleep(0.01)
     sendWS(data)
 
 
-def sendWS(ws, command):
+def sendWS(command):
     SendGcode = {
         "jsonrpc": "2.0",
         "method": "printer.gcode.script",
@@ -44,7 +44,7 @@ def on_message(ws, message):
         if data["method"] == "notify_gcode_response":
             if "params" in data:
                 data = str(data["params"])
-                data = data[3:-2] + "\r\n"
+                data = str(data[3:-2]) + "\r\n"
                 print(data)
                 display.write(convertASCII(data))
                 time.sleep(0.01)
