@@ -27,7 +27,7 @@ def convertASCII(input):
 
 def filterData(input):
     data = str(input)
-    data = str(data[3:-2])
+    data = str(data[2:-2])
     return data
 
 def receiveWS():
@@ -38,6 +38,8 @@ def receiveWS():
     if "method" in data:
         if data["method"] == "notify_gcode_response":
             content = filterData(data["params"])
+
+
             print("Jetzt kommen die True facts: " + content)
             return content
 
