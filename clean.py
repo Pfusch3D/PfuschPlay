@@ -43,9 +43,8 @@ def receiveWS():
             content = filterData(data["params"])
             if content == "!! Shutdown due to webhooks request":
                 emergency = 1
-            else:
-                print("Jetzt kommen die True facts: " + content)
-                return content
+            print("Jetzt kommen die True facts: " + content)
+            return content
 
 
 def sendS(command):
