@@ -15,6 +15,11 @@ time.sleep(2)
 display.open()
 
 
+def convertASCII(input):
+    ascii_values = [ord(character) for character in input]
+    return ascii_values
+
+
 def checkS():
     if (display.in_waiting() > 0):
         data = display.readline().rstrip().decode("ascii")
@@ -42,6 +47,8 @@ def on_message(ws, message):
                 data = str(data["params"])
                 data = data[3:-2]
                 print(data)
+                display.write(convertASCII(data))
+                time.sleep(0.01)
 
 
 def on_error(ws, error):
