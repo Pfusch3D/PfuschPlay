@@ -82,7 +82,7 @@ def receiveS():
 
 def rec():
     while True:
-        checkWS()
+        #checkWS()
         x = receiveS()
         sendWS(x)
 
