@@ -20,8 +20,6 @@ ws = websocket.WebSocket()
 ws.connect(config.PfuschPlay["websocketURL"])
 
 
-
-
 def checkEmergency(status=0):
     global emergency
     if status == 1:
@@ -53,8 +51,9 @@ def receiveWS():
             content = filterData(data["params"])
             if content == "!! Shutdown due to webhooks request":
                 checkEmergency(status=1)
-            print("Jetzt kommen die True facts: " + content)
-            return content
+            if (checkEmergency() == 2):
+                print("Jetzt kommen die True facts: " + content)
+                return content
 
 
 def sendS(command):
@@ -104,10 +103,8 @@ def sen():
         sendS(y)
 
 
-
 # Process(target=rec).start()
 # Process(target=sen).start()
-
 while True:
     x = receiveS()
     sendWS(x)
