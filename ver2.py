@@ -73,5 +73,5 @@ if __name__ == "__main__":
                                 on_open=on_open,
                                 on_message=on_message,
                                 on_error=on_error)
-    Process(target=Serial, args=ws).start()
+    Process(target=Serial, args=(ws)).start()
     Process(target=WebSocket).start()
