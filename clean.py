@@ -52,6 +52,7 @@ def sendS(command):
         display.write(convertASCII(data))
         time.sleep(0.01)
         if data == "!! Shutdown due to webhooks request":
+            print("blablbla")
             emergency = True
         print("Websocket Receive: " + str(data))  # Only for debugging
 
