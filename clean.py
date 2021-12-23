@@ -6,12 +6,16 @@ import config
 import time
 
 display = serial.Serial()
+# Load baudrate from config file:
 display.baudrate = config.PfuschPlay["baudrate"]
+# Load port from config file:
 display.port = config.PfuschPlay["serialPort"]
+# Wait for Bootloader of TFT
 time.sleep(2)
 display.open()
 
 ws = websocket.WebSocket()
+# Load websocket URL from config file:
 ws.connect(config.PfuschPlay["websocketURL"])
 
 
@@ -30,7 +34,6 @@ def receiveWS():
 
 def sendS(command):
     if command:
-        print(command)
         data = str(command)
         data = data.replace("[", "")
         data = data.replace("]", "")
