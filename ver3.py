@@ -20,5 +20,5 @@ if __name__ == "__main__":
     Process(target=ws.run_forever).start()
     #ws.start()
 
-    while ws.sock.connected:
+    while ws.connected:
         print("Hey hier kommt der TFT Code hin")
