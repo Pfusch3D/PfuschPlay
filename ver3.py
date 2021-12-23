@@ -14,7 +14,7 @@ def on_close(ws):
 
 def on_open(ws):
     global Status
-    Status = true
+    Status = True
 
 
 if __name__ == "__main__":
