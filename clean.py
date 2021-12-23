@@ -28,22 +28,18 @@ def receiveWS():
             return data["params"]
 
 
-def sendS(commandone):
-    if commandone:
-        print(commandone)
-        datazero = str(commandone)
-        wrong = "[]'"
-        for x in range(len(wrong)):
-            string = datazero.replace(wrong[x], "")
-        print("For schleife: " + string)
-        dataone = datazero.replace("[", "")
-        datatwo = dataone.replace("]", "")
-        datathree = datatwo.replace("'", "")
-        data = str(datathree.strip()) + "\r\n"
+def sendS(command):
+    if command:
+        print(command)
+        data = str(command)
+        data = data.replace("[", "")
+        data = data.replace("]", "")
+        data = data.replace("'", "")
+        data = str(data.strip()) + "\r\n"
         display.write(convertASCII(data))
         time.sleep(0.01)
 
-        print("Websocket Receive: " + str(datathree))  # Only for debugging
+        print("Websocket Receive: " + str(data))  # Only for debugging
 
 
 def sendWS(command):
