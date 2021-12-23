@@ -15,12 +15,32 @@ time.sleep(2)
 display.open()
 
 
+def checkS():
+    if (display.in_waiting() > 0):
+        data = display.readline().rstrip().decode("ascii")
+        print("TFT Input: " + data)
+        time.sleep(0.01)
+        return data
+
+
+def sendWS(command):
+    SendGcode = {
+        "jsonrpc": "2.0",
+        "method": "printer.gcode.script",
+        "params": {
+            "script": command
+        },
+        "id": 7466}
+    ws.send(json.dumps(SendGcode))
+
+
 def on_message(ws, message):
     data = json.loads(message)
     if "method" in data:
         if data["method"] == "notify_gcode_response":
             if "params" in data:
-                print(data["params"])
+                new = data["params"]
+                print(new[:-2])
 
 
 def on_error(ws, error):
@@ -39,3 +59,5 @@ if __name__ == "__main__":
                                 on_error=on_error)
 
     ws.run_forever()
+    while True:
+        checkS()
