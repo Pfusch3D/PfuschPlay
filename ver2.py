@@ -1,3 +1,4 @@
+from clean import sendS
 import websocket
 import serial
 import json
@@ -64,6 +65,9 @@ if __name__ == "__main__":
                                 on_open=on_open,
                                 on_message=on_message,
                                 on_error=on_error)
-    checkS()
-    ws.run_forever()
-
+    counter = 0
+    while True:
+        if counter == 0:
+            ws.run_forever()
+            counter = 1
+        checkS()
