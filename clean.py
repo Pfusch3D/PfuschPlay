@@ -88,13 +88,16 @@ def sen():
             sendS(y)
 
 
-Process(target=rec).start()
-Process(target=sen).start()
+# Process(target=rec).start()
+# Process(target=sen).start()
 
 
-# while True:
-#     x = receiveS()
-#     sendWS(x)
-#     # time.sleep(0.5)
-#     y = receiveWS()
-#     sendS(y)
+while True:
+    if shutdown == 0:
+        x = receiveS()
+        sendWS(x)
+        # time.sleep(0.5)
+        y = receiveWS()
+        sendS(y)
+    else:
+        print("Hier läuft einiges Schief!")
