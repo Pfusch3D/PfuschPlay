@@ -69,7 +69,6 @@ def receiveS():
 def rec():
     while True:
             x = receiveS()
-            print("Befehl: " + x)
             sendWS(x)
 
 
