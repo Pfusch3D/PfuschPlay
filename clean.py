@@ -26,13 +26,9 @@ def convertASCII(input):
     return ascii_values
 
 
-
 def receiveWS():
-    global emergency
     ws_data = ws.recv()
     data = json.loads(ws_data)
-    if "error" in data:
-        emergency = True
     if "method" in data:
         while data["method"] == "notify_gcode_response":
             return data["params"]
@@ -52,7 +48,6 @@ def sendS(command):
 
 
 def sendWS(command):
-    global emergency
     SendGcode = {
         "jsonrpc": "2.0",
         "method": "printer.gcode.script",
@@ -60,10 +55,8 @@ def sendWS(command):
             "script": command
         },
         "id": 7466}
-    if emergency == False:
-        ws.send(json.dumps(SendGcode))
-    elif emergency == True:
-        print("Error! Die Welt explodiert! Sofort das Problem lösen!")
+
+    ws.send(json.dumps(SendGcode))
 
     print("Websocket Send: " + str(command))  # Only for debugging
 
@@ -81,7 +74,6 @@ def rec():
 
 def sen():
     while True:
-        checkWS()
         y = receiveWS()
         sendS(y)
 
