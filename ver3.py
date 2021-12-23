@@ -3,7 +3,7 @@ import websocket
 #from time import sleep
 from multiprocessing import Process
 
-Status = False
+Status = True
 
 def on_message(ws, message):
     print("Neue Nachricht")
@@ -14,7 +14,7 @@ def on_close(ws):
 
 def on_open(ws):
     global Status
-    Status = True
+    Status = False
 
 
 if __name__ == "__main__":
@@ -24,7 +24,7 @@ if __name__ == "__main__":
     #ws = threading.Thread(target=ws.run_forever)
     Process(target=ws.run_forever).start()
     #ws.start()
-
-    while Status:
+    print(Status)
+    while Status == True:
         print("Hey hier kommt der TFT Code hin")
 
