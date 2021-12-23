@@ -49,6 +49,7 @@ def sendS(command):
         time.sleep(0.01) # Protect against overload
 
 
+
 def sendWS(command):
     if command:
         SendGcode = {
@@ -69,12 +70,14 @@ def receiveS():
 def rec():
     while True:
             x = receiveS()
+            print("Befehl: " + x)
             sendWS(x)
 
 
 def sen():
     while True:
         y = receiveWS()
+        print()
         sendS(y)
 
 
