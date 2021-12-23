@@ -56,15 +56,10 @@ def on_error(ws, error):
 
 def on_open(ws):
     print("Websocket Verbindung hergestellt.")
-
-
-def WebSocket():
-    ws.run_forever()
-
-
-def Serial(ws):
     while True:
         checkS(ws)
+
+
 
 
 if __name__ == "__main__":
@@ -73,5 +68,4 @@ if __name__ == "__main__":
                                 on_open=on_open,
                                 on_message=on_message,
                                 on_error=on_error)
-    Process(target=Serial, args=(ws)).start()
-    Process(target=WebSocket).start()
+    ws.run_forever()
