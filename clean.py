@@ -50,14 +50,15 @@ def receiveWS():
 
 def sendS(command):
     global emergency
-    if command and emergency == 0:
-        data = command + "\r\n"
-        display.write(convertASCII(data))
-        time.sleep(0.01)
+    if command:
+        if emergency == 0:
+            data = command + "\r\n"
+            display.write(convertASCII(data))
+            time.sleep(0.01)
 
-        print("Websocket Receive: " + str(data))  # Only for debugging
-    else:
-        print("Error. Vielleicht Emergency Stop?")
+            print("Websocket Receive: " + str(data))  # Only for debugging
+        elif emergency == 1:
+            print("Error. Vielleicht Emergency Stop?")
 
 
 def sendWS(command):
