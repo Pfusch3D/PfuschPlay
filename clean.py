@@ -32,6 +32,10 @@ def sendS(commandone):
     if commandone:
         print(commandone)
         datazero = str(commandone)
+        wrong = ["[", ["]", "'"]]
+        for x in wrong:
+            string = datazero.replace(x, "")
+        print("For schleife: " + string)
         dataone = datazero.replace("[", "")
         datatwo = dataone.replace("]", "")
         datathree = datatwo.replace("'", "")
