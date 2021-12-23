@@ -20,11 +20,11 @@ def convertASCII(input):
     return ascii_values
 
 
-def checkS(ws):
+def checkS():
     data = display.readline().rstrip().decode("utf-8")
     print("TFT Input: " + str(data))
     time.sleep(0.01)
-    sendWS(ws, data)
+    return data
 
 
 def sendWS(ws, command):
@@ -57,7 +57,8 @@ def on_error(ws, error):
 def on_open(ws):
     print("Websocket Verbindung hergestellt.")
     while True:
-        checkS(ws)
+        y = checkS()
+        sendWS(ws,y)
 
 
 if __name__ == "__main__":

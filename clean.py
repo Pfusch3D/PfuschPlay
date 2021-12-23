@@ -1,5 +1,5 @@
 from multiprocessing import Process
-import websockets
+import websocket
 import serial
 import json
 import config
@@ -18,31 +18,15 @@ ws = websocket.WebSocket()
 # Load websocket URL from config file:
 ws.connect(config.PfuschPlay["websocketURL"])
 
-emergency = False
-
 
 def convertASCII(input):
     ascii_values = [ord(character) for character in input]
     return ascii_values
 
-def recWS():
-    ws_data = ws.recv()
-    data = json.loads(ws_data)
-    return data
-
-def checkWS():
-    datal = recWS()
-        ws_data = ws.recv()
-    data = json.loads(ws_data)
-    if "method" in datal:
-        if datal["method"] == "notify_gcode_response":
-            if "params" in datal:
-                if datal["params"] == "!! Shutdown due to webhooks request":
-                    print("ALAAAAARM")
-
 
 def receiveWS():
-    data = recWS()
+    ws_data = ws.recv()
+    data = json.loads(ws_data)
 
     if "method" in data:
         while data["method"] == "notify_gcode_response":
@@ -52,10 +36,7 @@ def receiveWS():
 def sendS(command):
     if command:
         data = str(command)
-        data = data.replace("[", "")
-        data = data.replace("]", "")
-        data = data.replace("'", "")
-        data = str(data.strip()) + "\r\n"
+        data = str(data[3:-2]) + "\r\n"
         display.write(convertASCII(data))
         time.sleep(0.01)
 
@@ -77,13 +58,12 @@ def sendWS(command):
 
 
 def receiveS():
-    data = display.readline().rstrip().decode("ascii")
+    data = display.readline().rstrip().decode("uft-8")
     return data
 
 
 def rec():
     while True:
-        #checkWS()
         x = receiveS()
         sendWS(x)
 
