@@ -40,7 +40,7 @@ def on_message(ws, message):
         if data["method"] == "notify_gcode_response":
             if "params" in data:
                 new = str(data["params"])
-                print(new[:-2])
+                print(new[3:-2])
 
 
 def on_error(ws, error):
