@@ -24,11 +24,11 @@ ws.connect(config.PfuschPlay["websocketURL"])
 
 def checkEmergency(status=0):
     global emergency
-    if status is 1:
+    if status == 1:
         emergency = 1
-    elif status is 2:
+    elif status == 2:
         emergency = 2
-    elif status is 0:
+    elif status == 0:
         return emergency
 
 
@@ -59,19 +59,19 @@ def receiveWS():
 
 def sendS(command):
     if command:
-        if checkEmergency() is 2:
+        if checkEmergency() == 2:
             data = command + "\r\n"
             display.write(convertASCII(data))
             time.sleep(0.01)
 
             print("Websocket Receive: " + str(data))  # Only for debugging
-        elif checkEmergency() is 1:
+        elif checkEmergency() == 1:
             print("Error ich darf nichts senden!")
 
 
 def sendWS(command):
     if command:
-        if checkEmergency() is 2:
+        if checkEmergency() == 2:
             SendGcode = {
                 "jsonrpc": "2.0",
                 "method": "printer.gcode.script",
@@ -83,7 +83,7 @@ def sendWS(command):
             ws.send(json.dumps(SendGcode))
 
             print("Websocket Send: " + str(command))  # Only for debugging
-        elif checkEmergency() is 1:
+        elif checkEmergency() == 1:
             print("Error ich darf auch nichts senden!")
 
 
