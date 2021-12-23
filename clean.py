@@ -47,7 +47,7 @@ def receiveWS():
 
 
 def sendS(command):
-    if command and (shutdown == 0):
+    if command:
         data = command + "\r\n"
         display.write(convertASCII(data))
         time.sleep(0.01)
@@ -55,7 +55,7 @@ def sendS(command):
 
 
 def sendWS(command):
-    if shutdown == 0:
+    if command:
         SendGcode = {
             "jsonrpc": "2.0",
             "method": "printer.gcode.script",
@@ -73,15 +73,19 @@ def receiveS():
 
 
 def rec():
+    global shutdown
     while True:
-        x = receiveS()
-        sendWS(x)
+        if shutdown == 0:
+            x = receiveS()
+            sendWS(x)
 
 
 def sen():
+    global shutdown
     while True:
-        y = receiveWS()
-        sendS(y)
+        if shutdown == 0:
+            y = receiveWS()
+            sendS(y)
 
 
 Process(target=rec).start()
