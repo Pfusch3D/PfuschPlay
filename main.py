@@ -34,8 +34,8 @@ if __name__ == '__main__':
         data = json.loads(ws_data)
         if "method" in data:
             if data["method"] == "notify_gcode_response":
-            content = filterData(data["params"])
-            return content
+                content = filterData(data["params"])
+                return content
 
     def sendS(command):
         if command:
