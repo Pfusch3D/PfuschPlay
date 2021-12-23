@@ -18,10 +18,20 @@ ws = websocket.WebSocket()
 # Load websocket URL from config file:
 ws.connect(config.PfuschPlay["websocketURL"])
 
+emergency = False
+
 
 def convertASCII(input):
     ascii_values = [ord(character) for character in input]
     return ascii_values
+
+
+def checkWS():
+    ws_data = ws.recv()
+    data = json.loads(ws_data)
+    if "method" in data:
+        if data["method"] == "notify_klippy_shutdown":
+            emergency = True
 
 
 def receiveWS():
@@ -53,7 +63,8 @@ def sendWS(command):
             "script": command
         },
         "id": 7466}
-    ws.send(json.dumps(SendGcode))
+    if emergency == False:
+        ws.send(json.dumps(SendGcode))
 
     print("Websocket Send: " + str(command))  # Only for debugging
 
@@ -71,6 +82,7 @@ def rec():
 
 def sen():
     while True:
+        checkWS()
         y = receiveWS()
         sendS(y)
 
