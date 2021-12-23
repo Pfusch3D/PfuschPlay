@@ -25,10 +25,13 @@ def convertASCII(input):
     ascii_values = [ord(character) for character in input]
     return ascii_values
 
+def recWS():
+    ws_data = ws.recv()
+    data = json.loads(ws_data)
+    return data
 
 def checkWS():
-    ws_datal = ws.recv()
-    datal = json.loads(ws_datal)
+    datal = recWS()
 
     if "method" in datal:
         if datal["method"] == "notify_gcode_response":
@@ -38,9 +41,7 @@ def checkWS():
 
 
 def receiveWS():
-    global emergency
-    ws_data = ws.recv()
-    data = json.loads(ws_data)
+    data = recWS()
 
     if "method" in data:
         while data["method"] == "notify_gcode_response":
