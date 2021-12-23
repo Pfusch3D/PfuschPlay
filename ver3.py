@@ -45,7 +45,7 @@ if __name__ == "__main__":
     ws = websocket.WebSocketApp(
         "ws://localhost/websocket", on_open=on_open, on_message=on_message, on_error=on_error)
     #ws = threading.Thread(target=ws.run_forever)
-    Process(target=ws.run_forever).start()
+    Process(target=ws.connect).start()
     # ws.start()
     while True:
         data = display.readline().rstrip().decode("utf-8")
