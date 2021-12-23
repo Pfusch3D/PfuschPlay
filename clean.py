@@ -55,7 +55,7 @@ def sendS(command):
 
 
 def sendWS(command):
-    if command and shutdown == 0:
+    if shutdown == 0:
         SendGcode = {
             "jsonrpc": "2.0",
             "method": "printer.gcode.script",
