@@ -22,7 +22,7 @@ def convertASCII(input):
 
 def checkS():
     data = display.readline().rstrip().decode("utf-8")
-    print("TFT Input: " + data)
+    print("TFT Input: " + str(data))
     time.sleep(0.01)
     sendWS(data)
 
@@ -66,7 +66,7 @@ if __name__ == "__main__":
                                 on_error=on_error)
     counter = 0
     while True:
+        checkS()
         if counter == 0:
             ws.run_forever()
             counter = 1
-        checkS()
