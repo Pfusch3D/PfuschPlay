@@ -3,7 +3,7 @@ import websocket
 #from time import sleep
 from multiprocessing import Process
 
-Status = false
+Status = False
 
 def on_message(ws, message):
     print("Neue Nachricht")
