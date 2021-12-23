@@ -4,11 +4,11 @@ from time import sleep
 
 
 def on_message(ws, message):
-    print message
+    print(message)
 
 
 def on_close(ws):
-    print "### closed ###"
+    print("### closed ###")
 
 
 if __name__ == "__main__":
