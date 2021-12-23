@@ -1,0 +1,9 @@
+[Unit]
+Description=UART TFT Implementation for Klipper
+After=multi-user.target
+ 
+[Service]
+ExecStart=python3 /home/pi/PfuschPlay/main.py
+ 
+[Install]
+WantedBy=multi-user.target
