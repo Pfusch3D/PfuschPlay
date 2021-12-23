@@ -1,10 +1,11 @@
 import websocket
-import threading
-from time import sleep
+#import threading
+#from time import sleep
+from multiprocessing import Process
 
 
 def on_message(ws, message):
-    print(message)
+    print("Neue Nachricht")
 
 
 def on_close(ws):
@@ -15,17 +16,9 @@ if __name__ == "__main__":
     websocket.enableTrace(False)
     ws = websocket.WebSocketApp(
         "ws://localhost/websocket", on_message=on_message, on_close=on_close)
-    ws = threading.Thread(target=ws.run_forever)
-    ws.start()
+    #ws = threading.Thread(target=ws.run_forever)
+    Process(target=ws.run_forever).start()
+    #ws.start()
 
-    conn_timeout = 5
-    while not ws.sock.connected and conn_timeout:
-        sleep(1)
-        conn_timeout -= 1
-
-    msg_counter = 0
     while ws.sock.connected:
-        print("Hello World!")
-        ws.send('Hello world %d' % msg_counter)
-        sleep(1)
-        msg_counter += 1
+        print("Hey hier kommt der TFT Code hin")
