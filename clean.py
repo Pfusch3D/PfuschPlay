@@ -103,15 +103,14 @@ def sen():
         y = receiveWS()
         sendS(y)
 
-checkEmergency(status=2)
 
 
-Process(target=rec).start()
-Process(target=sen).start()
+# Process(target=rec).start()
+# Process(target=sen).start()
 
-# while True:
-#     x = receiveS()
-#     sendWS(x)
-#     # time.sleep(0.5)
-#     y = receiveWS()
-#     sendS(y)
+while True:
+    x = receiveS()
+    sendWS(x)
+    # time.sleep(0.5)
+    y = receiveWS()
+    sendS(y)
