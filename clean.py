@@ -79,7 +79,7 @@ def sendWS(command):
                     "script": command
                 },
                 "id": 7466}
-            print("Bypass!")
+            print(checkEmergency())
             ws.send(json.dumps(SendGcode))
 
             print("Websocket Send: " + str(command))  # Only for debugging
