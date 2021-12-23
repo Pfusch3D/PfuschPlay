@@ -20,7 +20,7 @@ def on_message(ws, message):
     if "method" in data:
         if data["method"] == "notify_gcode_response":
             if "params" in data:
-                print("Hello World")
+                print(data["params"])
 
 
 def on_error(ws, error):
@@ -32,7 +32,7 @@ def on_open(ws):
 
 
 if __name__ == "__main__":
-    websocket.enableTrace(True)
+    websocket.enableTrace(False)
     ws = websocket.WebSocketApp("ws://localhost/websocket",
                                 on_open=on_open,
                                 on_message=on_message,
