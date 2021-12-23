@@ -38,10 +38,11 @@ def receiveWS():
     if "method" in data:
         if data["method"] == "notify_gcode_response":
             content = filterData(data["params"])
-
-
-            print("Jetzt kommen die True facts: " + content)
-            return content
+            if content == "!! Shutdown due to webhooks request":
+                print("ALAAAARM")
+            else:
+                print("Jetzt kommen die True facts: " + content)
+                return content
 
 
 def sendS(command):
