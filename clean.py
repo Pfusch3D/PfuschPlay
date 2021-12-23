@@ -58,7 +58,7 @@ def sendWS(command):
 
 
 def receiveS():
-    data = display.readline().rstrip().decode("uft-8")
+    data = display.readline().rstrip().decode("UTF-8")
     return data
 
 
