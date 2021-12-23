@@ -19,7 +19,6 @@ ws = websocket.WebSocket()
 ws.connect(config.PfuschPlay["websocketURL"])
 
 
-
 def convertASCII(input):
     ascii_values = [ord(character) for character in input]
     return ascii_values
@@ -45,8 +44,7 @@ def sendS(command):
     if command:
         data = command + "\r\n"
         display.write(convertASCII(data))
-        time.sleep(0.01) # Protect against overload
-
+        time.sleep(0.01)  # Protect against overload
 
 
 def sendWS(command):
@@ -68,8 +66,8 @@ def receiveS():
 
 def rec():
     while True:
-            x = receiveS()
-            sendWS(x)
+        x = receiveS()
+        sendWS(x)
 
 
 def sen():
@@ -79,6 +77,6 @@ def sen():
         sendS(y)
 
 
-Process(target=rec).start()
-Process(target=sen).start()
-
+if __name__ == '__main__':
+    Process(target=rec).start()
+    Process(target=sen).start()
