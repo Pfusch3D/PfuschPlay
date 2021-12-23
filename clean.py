@@ -25,10 +25,12 @@ def convertASCII(input):
     ascii_values = [ord(character) for character in input]
     return ascii_values
 
+
 def filterData(input):
     data = str(input)
     data = str(data[2:-2]).strip()
     return data
+
 
 def receiveWS():
 
@@ -59,17 +61,19 @@ def sendS(command):
 
 
 def sendWS(command):
-    SendGcode = {
-        "jsonrpc": "2.0",
-        "method": "printer.gcode.script",
-        "params": {
-            "script": command
-        },
-        "id": 7466}
+    global emergency
+    if emergency == 0:
+        SendGcode = {
+            "jsonrpc": "2.0",
+            "method": "printer.gcode.script",
+            "params": {
+                "script": command
+            },
+            "id": 7466}
 
-    ws.send(json.dumps(SendGcode))
+        ws.send(json.dumps(SendGcode))
 
-    print("Websocket Send: " + str(command))  # Only for debugging
+        print("Websocket Send: " + str(command))  # Only for debugging
 
 
 def receiveS():
