@@ -3,7 +3,7 @@ import _thread
 import time
 
 def on_message(ws, message):
-    print(message)
+    print(ws)
 
 def on_error(ws, error):
     print(error)
