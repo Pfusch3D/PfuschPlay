@@ -27,13 +27,13 @@ def convertASCII(input):
 
 
 def checkWS():
-    ws_data = ws.recv()
-    data = json.loads(ws_data)
+    ws_datal = ws.recv()
+    datal = json.loads(ws_datal)
 
-    if "method" in data:
-        if data["method"] == "notify_gcode_response":
-            if "params" in data:
-                if data["params"] == "!! Shutdown due to webhooks request":
+    if "method" in datal:
+        if datal["method"] == "notify_gcode_response":
+            if "params" in datal:
+                if datal["params"] == "!! Shutdown due to webhooks request":
                     print("ALAAAAARM")
 
 
