@@ -1,5 +1,6 @@
 import websocket
 import serial
+import config
 import _thread
 import time
 
