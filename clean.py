@@ -13,21 +13,10 @@ display.port = config.PfuschPlay["serialPort"]
 # Wait for Bootloader of TFT
 time.sleep(2)
 display.open()
-emergency = 2  # 1 --> active, 2 --> inactive
 
 ws = websocket.WebSocket()
 # Load websocket URL from config file:
 ws.connect(config.PfuschPlay["websocketURL"])
-
-
-def checkEmergency(status=0):
-    global emergency
-    if status == 1:
-        emergency = 1
-    elif status == 2:
-        emergency = 2
-    elif status == 0:
-        return emergency
 
 
 def convertASCII(input):
@@ -42,48 +31,34 @@ def filterData(input):
 
 
 def receiveWS():
-
     ws_data = ws.recv()
     data = json.loads(ws_data)
-
     if "method" in data:
         if data["method"] == "notify_gcode_response":
             content = filterData(data["params"])
-            if content == "!! Shutdown due to webhooks request":
-                checkEmergency(status=1)
-            if (checkEmergency() == 2):
-                print("Jetzt kommen die True facts: " + content)
-                return content
+            print("Jetzt kommen die True facts: " + content)
+            return content
 
 
 def sendS(command):
     if command:
-        if (checkEmergency() == 2):
-            data = command + "\r\n"
-            display.write(convertASCII(data))
-            time.sleep(0.01)
-
-            print("Websocket Receive: " + str(data))  # Only for debugging
-        elif (checkEmergency() == 1):
-            print("Error ich darf nichts senden!")
+        data = command + "\r\n"
+        display.write(convertASCII(data))
+        time.sleep(0.01)
+        print("Websocket Receive: " + str(data))  # Only for debugging
 
 
 def sendWS(command):
     if command:
-        if (checkEmergency() == 2):
-            SendGcode = {
-                "jsonrpc": "2.0",
-                "method": "printer.gcode.script",
-                "params": {
-                    "script": command
-                },
-                "id": 7466}
-            print(checkEmergency())
-            ws.send(json.dumps(SendGcode))
-
-            print("Websocket Send: " + str(command))  # Only for debugging
-        elif (checkEmergency() == 1):
-            print("Error ich darf auch nichts senden!")
+        SendGcode = {
+            "jsonrpc": "2.0",
+            "method": "printer.gcode.script",
+            "params": {
+                "script": command
+            },
+            "id": 7466}
+        ws.send(json.dumps(SendGcode))
+        print("Websocket Send: " + str(command))  # Only for debugging
 
 
 def receiveS():
@@ -103,11 +78,13 @@ def sen():
         sendS(y)
 
 
-# Process(target=rec).start()
-# Process(target=sen).start()
-while True:
-    x = receiveS()
-    sendWS(x)
-    # time.sleep(0.5)
-    y = receiveWS()
-    sendS(y)
+Process(target=rec).start()
+Process(target=sen).start()
+
+
+# while True:
+#     x = receiveS()
+#     sendWS(x)
+#     # time.sleep(0.5)
+#     y = receiveWS()
+#     sendS(y)
