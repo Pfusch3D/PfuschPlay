@@ -1,8 +1,8 @@
+from multiprocessing import Process
 import websocket
 import serial
 import json
 import config
-import _thread
 import time
 
 display = serial.Serial()
@@ -58,12 +58,20 @@ def on_open(ws):
     print("Websocket Verbindung hergestellt.")
 
 
+def WebSocket():
+    ws.run_forever()
+
+
+def Serial():
+    while True:
+        checkS()
+
+
 if __name__ == "__main__":
     websocket.enableTrace(False)
     ws = websocket.WebSocketApp("ws://localhost/websocket",
                                 on_open=on_open,
                                 on_message=on_message,
                                 on_error=on_error)
-    print("Debug 1")
-    ws.run_forever()
-    print("Debug 2")
+    Process(target=Serial).start()
+    Process(target=WebSocket).start()
