@@ -55,7 +55,7 @@ def sendWS(command):
             "params": {
                 "script": command
             },
-            "id": 7467}
+            "id": 9999}
         ws.send(json.dumps(SendGcode))
 
 
