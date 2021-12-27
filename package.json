@@ -11,6 +11,5 @@
   "dependencies": {
     "serialport": "^9.2.8",
     "websocket": "^1.0.34"
-
   }
 }

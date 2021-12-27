@@ -71,7 +71,7 @@ ws.on('connect', function (connection) {
             currentData.Print_Progress = (data.result.status.virtual_sdcard.progress * 100).toFixed()
             console.log(currentData.Print_Progress)
 
-        } else if (data.method == "notify_gcode_response") {
+        } else if (data.id == 7466) {
             commandResponse = data.params.toString()
             display.write(commandResponse.trim() + "\r\n")
             console.log(commandResponse.trim())
