@@ -68,12 +68,13 @@ ws.on('connect', function (connection) {
 
         } else if (data.id == 5664) {
             currentData.Print_Time = parseInt(data.result.status.print_stats.total_duration) / 60
-            currentData.Print_Progress = data.result.status.virtual_sdcard.progress * 100
+            currentData.Print_Progress = (data.result.status.virtual_sdcard.progress * 100).toFixed()
+            console.log(currentData.Print_Progress)
 
         } else if (data.method == "notify_gcode_response") {
             commandResponse = data.params.toString()
             display.write(commandResponse.trim() + "\r\n")
-            console.log(commandResponse)
+            console.log(commandResponse.trim())
         }
     });
 
@@ -92,7 +93,7 @@ ws.on('connect', function (connection) {
         } else if (data == "A5") {
             display.write("A5V X:" + currentData.Position_X + " Y:" + currentData.Position_Y + " Z:" + currentData.Position_Z + "\r\n");
         } else if (data == "A6") {
-            display.write("A6V " + currentData.progress +  "\r\n");
+            display.write("A6V " + currentData.Print_Progress + "\r\n");
         } else if (data == "A7") {
             function timeConvert(n) {
                 var num = n;
