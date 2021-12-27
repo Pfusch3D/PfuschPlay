@@ -1,0 +1,5 @@
+{
+    "SerialPort": "/dev/ttyAMA0",
+    "SerialBaudrate": 115200,
+    "WebSocketURL": "ws://anycubic/websocket"
+}
