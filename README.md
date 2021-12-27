@@ -18,7 +18,7 @@ Danach nodeJS:
   su pi # oder euren Benutzernamen
 ```
   
-nachdem ihr nodejs inkl. npm und git installiert habt könnt ihr im Hauptverzeichnis das Github Projekt klonen. Gebt dazu `git clone https://github.com/BastelKlug/PfuschPlay` in die Konsole ein. Danach ein cd PfuschPlay und darauffolgend `npm install`.
+nachdem ihr nodejs inkl. npm und git installiert habt könnt ihr im Hauptverzeichnis `cd ~` das Github Projekt klonen. Gebt dazu `git clone https://github.com/BastelKlug/PfuschPlay` in die Konsole ein. Danach ein `cd PfuschPlay` und darauffolgend `npm install`.
 
 In der config.json findet man 3 verschiedene Einstellmöglichkeiten. Die Websocket URL lässt ihr bitte unberührt, Baudrate und Port sind auf die GPIO Ports eingestellt. Für PfuschPlay muss eine Verbindung zwischen Display und Raspberry pi stattfinden. Bearbeiten könnt ihr die Datei mit nano, welcher auf eurem Pi vorinstalliert ist. Einfach `sudo nano config.json` eingeben.
 ```
@@ -29,6 +29,7 @@ In der config.json findet man 3 verschiedene Einstellmöglichkeiten. Die Websock
   Grau (TX) --> Pin 10 (RX) // Was gesendet wird muss irgendwo auch empfangen werden.
   Gelb --> Pin 6 (GND)
 ```
+Bitte beachtet, dass der Pi standardmäßig die UART Pins nicht aktiviert hat. Ab MainsailOS 0.5.0 (also alle Drucker die nach dem 28. August mit MainsailOS installiert wurden) ist UART standardmäßig aktiviert. Da beim Pi 3 Bluetooth deakvitiert werden muss usw. würde ich einfach eine Neuinstallation empfehlen. Aber Achtung: printer.cfg sichern ;) Ebenso könnt ihr einen TTL Adapter verweden und das Display per USB verbinden. `ls /dev/serial/by-id/*` eingeben um die id vom TTL Adapter zu finden. Diese ID dann in die config.json eintragen.
 
 Aktuell ist es noch nicht möglich PfuschPlay automatisch zu starten. Deshalb experimentell im PfuschPlay Ordner `node .` oder `node index.js` ausführen. 
 
