@@ -33,6 +33,108 @@ Bitte beachtet, dass der Pi standardmäßig die UART Pins nicht aktiviert hat. A
 
 Aktuell ist es noch nicht möglich PfuschPlay automatisch zu starten. Deshalb experimentell im PfuschPlay Ordner `node .` oder `node index.js` ausführen. 
 
+Ihr braucht noch einzelne Macros für das TFT. Dazu einfach diesen Text in das Ende eurer printer.cfg einfügen (oder eine eigene datei erstellen und diese importieren):
+
+```
+
+
+[gcode_macro A7]
+gcode:
+  RESPOND MSG="A7V 1H 20M"
+
+[gcode_macro A8]
+gcode:
+
+[gcode_macro A9]
+gcode:
+  PAUSE
+  RESPOND MSG="J05"
+
+[gcode_macro A10]
+gcode:
+  RESUME
+  RESPOND MSG="J04"
+
+[gcode_macro A11]
+gcode:
+  CANCEL_PRINT
+  RESPOND MSG="J16"
+
+[gcode_macro A12]
+gcode:
+  M112
+
+[gcode_macro A16]
+gcode:
+  {% if 'S' in params %}
+  M104 S{params.S}
+  {% endif %}
+  {% if 'C' in params %}
+  M104 S{params.C}
+  {% endif %}
+
+[gcode_macro A17]
+gcode:
+  M140 S{params.S}
+
+[gcode_macro A18]
+gcode:
+  M106 S{params.S|int * 2.55}
+
+
+[gcode_macro A19]
+gcode:
+  M18
+  RESPOND MSG="J12"
+
+[gcode_macro A22]
+gcode:
+  {% if 'X' in params %}
+  G91
+  G1 X{params.X} F{params.F}
+  G90
+  {% endif %}
+
+  {% if 'Y' in params %}
+  G91
+  G1 Y{params.Y} F{params.F}
+  G90
+  {% endif %}
+
+  {% if 'Z' in params %}
+  G91
+  G1 Z{params.Z} F{params.F}
+  G90
+  {% endif %}
+
+  {% if 'E' in params %}
+    {% if '+' in params.E[:-2] %}
+      G1 E+5 F1000
+    {% endif %}
+    {% if '-' in params.E[:-2] %}
+      G1 E-20 F1800
+    {% endif %}
+  {% endif %}
+
+
+[gcode_macro A23]
+gcode:
+  SET_HEATER_TEMPERATURE HEATER=extruder TARGET=200
+  SET_HEATER_TEMPERATURE HEATER=heater_bed TARGET=60
+
+[gcode_macro A24]
+gcode:
+  SET_HEATER_TEMPERATURE HEATER=extruder TARGET=230
+  SET_HEATER_TEMPERATURE HEATER=heater_bed TARGET=80
+
+[gcode_macro A25]
+gcode:
+  TURN_OFF_HEATERS
+  RESPOND MSG="J12"
+[gcode_macro A26]
+gcode:
+```
+
 Ich arbeite an einem systemd Service dafür 😅
 
 (Das ganze funktioniert aktuell nicht, da euch die Macros fehlen. Lade ich die Tage mal hoch 😅)
