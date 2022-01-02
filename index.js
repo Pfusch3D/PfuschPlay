@@ -18,7 +18,8 @@ const parser = new parsers.Readline({
 display.pipe(parser);
 
 const ws = new WebSocketClient();
-
+const commands = require("./TFT_Anycubic/commands");
+const start = require("./TFT_Anycubic/start")
 if (config.DisplayType == "Anycubic") {
     const commands = require("./TFT_Anycubic/commands");
     const start = require("./TFT_Anycubic/start")
