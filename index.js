@@ -18,11 +18,11 @@ const parser = new parsers.Readline({
 display.pipe(parser);
 
 const ws = new WebSocketClient();
-const commands = require("./TFT_Anycubic/commands");
-const start = require("./TFT_Anycubic/start")
+const commands = require("./" + config.DisplayType + "/commands");
+const start = require("./" + config.DisplayType + "/commands");
 if (config.DisplayType == "Anycubic") {
-    const commands = require("./TFT_Anycubic/commands");
-    const start = require("./TFT_Anycubic/start")
+    const commands = require("./Anycubic/commands");
+    const start = require("./Anycubic/start")
 } else if (config.DisplayType == "BTT/MKS") {
     const commands = require("./TFT_BTTMKS/commands");
     const start = require("./TFT_BTTMKS/start")
