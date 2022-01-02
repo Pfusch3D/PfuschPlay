@@ -83,7 +83,7 @@ ws.on("connect", function (connection) {
             console.log(currentData.Print_Progress)
 
         } else if (data.id == 7466) {
-            currentData.commandResponse = data.params.toString()
+            currentData.commandResponse = data.params.toString();
             display.write(currentData.commandResponse.trim() + "\r\n")
             console.log(currentData.commandResponse.trim())
         }
