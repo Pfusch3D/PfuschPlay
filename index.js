@@ -1,8 +1,8 @@
 #!/usr/bin/node
 
-const WebSocketClient = require('websocket').client;
-const SerialPort = require('serialport');
-const config = require('./config.json');
+const WebSocketClient = require("websocket").client;
+const SerialPort = require("serialport");
+const config = require("./config.json");
 const parsers = SerialPort.parsers;
 
 
@@ -12,13 +12,27 @@ const display = new SerialPort(config.SerialPort, {
 });
 
 const parser = new parsers.Readline({
-    delimiter: '\r\n',
+    delimiter: "\r\n"
 });
 
 display.pipe(parser);
 
 const ws = new WebSocketClient();
 
+if (config.DisplayType == "Anycubic") {
+    const commands = require("./TFT_Anycubic/commands");
+    const start = require("./TFT_Anycubic/start")
+} else if (config.DisplayType == "BTT/MKS") {
+    const commands = require("./TFT_BTTMKS/commands");
+    const start = require("./TFT_BTTMKS/start")
+} else if (config.DisplayType == "Custom") {
+    const commands = require("./TFT_Custom/commands")
+    const start = require("./TFT_Custom/start")
+} else {
+    console.log("Display Typ nicht gefunden. Bitte DisplayType in config.json überprüfen.")
+    console.log("Display type not found. Please check DisplayType in config.json")
+    process.exit(1)
+}
 var currentData = {
     Nozzle_Temperature: "",
     Nozzle_Target_Temperature: "",
@@ -30,21 +44,17 @@ var currentData = {
     Speed_Factor: "",
     Extrude_Factor: "",
     Print_Time: "",
-    Print_Progress: ""
+    Print_Progress: "",
+    commandResponse: ""
 
 };
-var commandResponse;
+console.log("PfuschPlay wurde gestartet")
+console.log("PfuschPlay was started")
 
-display.write("J00" + "\r\n");
-display.write("J12" + "\r\n");
+start(display)
 
-
-
-
-console.log("PfuschPlay was started - PfuschPlay wurde gestartet")
-
-ws.on('connect', function (connection) {
-    connection.on('message', function (message) {
+ws.on("connect", function (connection) {
+    connection.on("message", function (message) {
         let data = message.utf8Data;
         data = JSON.parse(data);
         //console.log(data)
@@ -72,49 +82,16 @@ ws.on('connect', function (connection) {
             console.log(currentData.Print_Progress)
 
         } else if (data.id == 7466) {
-            commandResponse = data.params.toString()
-            display.write(commandResponse.trim() + "\r\n")
-            console.log(commandResponse.trim())
+            currentData.commandResponse = data.params.toString()
+            display.write(currentData.commandResponse.trim() + "\r\n")
+            console.log(currentData.commandResponse.trim())
         }
     });
 
-    parser.on('data', function (data) {
+    parser.on("data", function (data) {
         console.log("Display Data: " + data);
-        if (data == "A0") {
-            display.write("A0V" + currentData.Nozzle_Temperature + "\r\n");
-        } else if (data == "A1") {
-            display.write("A1V" + currentData.Nozzle_Target_Temperature + "\r\n");
-        } else if (data == "A2") {
-            display.write("A2V" + currentData.Printbed_Temperature + "\r\n");
-        } else if (data == "A3") {
-            display.write("A3V" + currentData.Printbed_Target_Temperature + "\r\n");
-        } else if (data == "A4") {
-            display.write("" + "\r\n");
-        } else if (data == "A5") {
-            display.write("A5V X:" + currentData.Position_X + " Y:" + currentData.Position_Y + " Z:" + currentData.Position_Z + "\r\n");
-        } else if (data == "A6") {
-            display.write("A6V " + currentData.Print_Progress + "\r\n");
-        } else if (data == "A7") {
-            function timeConvert(n) {
-                var num = n;
-                var hours = (num / 60);
-                var rhours = Math.floor(hours);
-                var minutes = (hours - rhours) * 60;
-                var rminutes = Math.round(minutes);
-                return rhours + "H " + rminutes + " M";
-            }
-            let time = timeConvert(currentData.Print_Time)
-            display.write("A7V " + time + "\r\n")
-        } else if (data == "A12") {
-            let sample = {
-                "jsonrpc": "2.0",
-                "method": "printer.emergency_stop",
-                "id": 4564
-            }
-            connection.send(JSON.stringify(sample));
-        } else if (data == "A20") {
-            display.write("" + "\r\n");
-        } else {
+        let status = commands(currentData, display, connection)
+        if (status != 0) {
             let sample = {
                 "jsonrpc": "2.0",
                 "method": "printer.gcode.script",
@@ -125,6 +102,7 @@ ws.on('connect', function (connection) {
             }
             connection.send(JSON.stringify(sample));
         }
+
     })
 
     function Get_Temp_Data() {
@@ -164,8 +142,8 @@ ws.on('connect', function (connection) {
     setInterval(Get_Temp_Data, 500);
 })
 
-ws.on('connectFailed', function (error) {
-    console.log('Connect Error: ' + error.toString());
+ws.on("connectFailed", function (error) {
+    console.log("Connect Error: " + error.toString());
 });
 
 
