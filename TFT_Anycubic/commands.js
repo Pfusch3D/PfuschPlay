@@ -1,4 +1,4 @@
-module.exports = (currentData, display, connection) => {
+module.exports = (data, currentData, display, connection) => {
     const end = "\r\n"
     if (data == "A0") {
         display.write("A0V" + currentData.Nozzle_Temperature + end);

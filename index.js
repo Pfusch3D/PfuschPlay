@@ -91,7 +91,7 @@ ws.on("connect", function (connection) {
 
     parser.on("data", function (data) {
         console.log("Display Data: " + data);
-        let status = commands(currentData, display, connection)
+        let status = commands(data, currentData, display, connection)
         if (status != 0) {
             let sample = {
                 "jsonrpc": "2.0",
