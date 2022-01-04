@@ -18,17 +18,17 @@ const parser = new parsers.Readline({
 display.pipe(parser);
 
 const ws = new WebSocketClient();
-const commands = require("./" + config.DisplayType + "/commands");
-const start = require("./" + config.DisplayType + "/commands");
+var commands;
+var start;
 if (config.DisplayType == "Anycubic") {
-    const commands = require("./Anycubic/commands");
-    const start = require("./Anycubic/start")
+    commands = require("./Anycubic/commands");
+    start = require("./Anycubic/start")
 } else if (config.DisplayType == "BTT/MKS") {
-    const commands = require("./TFT_BTTMKS/commands");
-    const start = require("./TFT_BTTMKS/start")
+    commands = require("./TFT_BTTMKS/commands");
+    start = require("./TFT_BTTMKS/start")
 } else if (config.DisplayType == "Custom") {
-    const commands = require("./TFT_Custom/commands")
-    const start = require("./TFT_Custom/start")
+    commands = require("./TFT_Custom/commands")
+    start = require("./TFT_Custom/start")
 } else {
     console.log("Display Typ nicht gefunden. Bitte DisplayType in config.json überprüfen.")
     console.log("Display type not found. Please check DisplayType in config.json")
