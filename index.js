@@ -18,22 +18,28 @@ const parser = new parsers.Readline({
 display.pipe(parser);
 
 const ws = new WebSocketClient();
-var commands;
-var start;
+
+var commandsPath;
+var startPath;
+
 if (config.DisplayType == "Anycubic") {
-    commands = require("./Anycubic/commands");
-    start = require("./Anycubic/start")
+    commandsPath = "./TFT_Anycubic/commands";
+    startPath = "./TFT_Anycubic/start";
 } else if (config.DisplayType == "BTT/MKS") {
-    commands = require("./TFT_BTTMKS/commands");
-    start = require("./TFT_BTTMKS/start")
+    commandsPath = "./TFT_BTTMKS/commands";
+    startPath = "./TFT_BTTMKS/start";
 } else if (config.DisplayType == "Custom") {
-    commands = require("./TFT_Custom/commands")
-    start = require("./TFT_Custom/start")
+    commandsPath = "./TFT_Custom/commands";
+    startPath = "./TFT_Custom/start";
 } else {
     console.log("Display Typ nicht gefunden. Bitte DisplayType in config.json überprüfen.")
     console.log("Display type not found. Please check DisplayType in config.json")
     process.exit(1)
 }
+
+const commands = require(commandsPath);
+const start = require(startPath)
+
 var currentData = {
     Nozzle_Temperature: "",
     Nozzle_Target_Temperature: "",
@@ -80,18 +86,17 @@ ws.on("connect", function (connection) {
         } else if (data.id == 5664) {
             currentData.Print_Time = parseInt(data.result.status.print_stats.total_duration) / 60
             currentData.Print_Progress = (data.result.status.virtual_sdcard.progress * 100).toFixed()
-            console.log(currentData.Print_Progress)
 
         } else if (data.method == "notify_gcode_response") {
             commandResponse = data.params.toString()
             display.write(commandResponse.trim() + "\r\n")
-            console.log(commandResponse.trim())
+            //console.log(commandResponse.trim())
         }
     });
 
-    parser.on("data", function (data) {
-        console.log("Display Data: " + data);
-        let status = commands(data, currentData, display, connection)
+    parser.on("data", function (DisplayData) {
+        //console.log("Display Data: " + data);
+        let status = commands(DisplayData, currentData, display)
         if (status == 1) {
             let sample = {
                 "jsonrpc": "2.0",
@@ -140,11 +145,11 @@ ws.on("connect", function (connection) {
         connection.send(JSON.stringify(sample3));
 
     };
-    setInterval(Get_Temp_Data, 500);
+    setInterval(Get_Temp_Data, 500); // Request ever half second new Data for currentData
 })
 
 ws.on("connectFailed", function (error) {
-    console.log("Connect Error: " + error.toString());
+    console.log("ALAAARM! Error: " + error.toString());
 });
 
 
