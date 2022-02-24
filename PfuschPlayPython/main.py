@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import asyncio
 import configparser
 import sys
 import serial
@@ -6,14 +7,13 @@ import serial
 config = configparser.RawConfigParser()
 config.read(str(sys.argv[1]))
 
-displaytype = config['display']['displaytype']
-serialport = config['display']['serialport']
-baudrate = config['display']['baudrate']
-websocketurl = config['display']['websocketurl']
+displaytype = str(config['display']['displaytype'])
+serialport = str(config['display']['serialport'])
+baudrate = int(config['display']['baudrate'])
+websocketurl = str(config['display']['websocketurl'])
 
-def connect:
-    ser = serial.Serial(port=serialport)  
-
+def connect():
+    display = serial.Serial(port=serialport, baudrate=baudrate, )  
 
 def main():
     print("Display Typ: ", displaytype)
