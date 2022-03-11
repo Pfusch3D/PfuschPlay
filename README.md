@@ -1,5 +1,8 @@
 # PfuschPlay
 
+
+UPDATE: PfuschPlay is currently an unstable botch solution! I'm working on a new version which simplifies a lot!
+
 Use Klipper with TFT screens which uses UART to communicate.
 
 Das ganze Projekt wird vorerst auf Deutsch beschrieben:
