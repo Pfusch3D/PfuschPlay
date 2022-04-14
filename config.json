@@ -1,6 +1,0 @@
-{
-    "SerialPort": "/dev/ttyAMA0",
-    "SerialBaudrate": 115200,
-    "WebSocketURL": "ws://localhost/websocket",
-    "DisplayType": "Anycubic"
-}
